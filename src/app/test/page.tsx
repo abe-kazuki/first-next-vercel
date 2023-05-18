@@ -1,3 +1,5 @@
-export default function Home() {
-    return <h1>Next.jsのVercelへのデプロイ完了！</h1>;
-  }
+const Test = () => {
+    return <h1>Testページ</h1>;
+  };
+  
+  export default Test;
