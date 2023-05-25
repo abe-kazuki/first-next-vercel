@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { reqPosts } from './../../lib/getJsonPlaceholder';
 import { MyCard } from './../..//components/card';
+import { SampleCard } from './../..//components/sample_cell';
 
 const page = async () => {
   const reqPostsResult = (await reqPosts.get()).response.data
@@ -9,9 +10,10 @@ const page = async () => {
     <main className="main">
       <h1 className="title">Blog List</h1>
       <div className="grid">
-        {reqPostsResult.map(({ id, title }) => (
+        {reqPostsResult.map(({ id, title, body }) => (
           <div key={id}>
             <MyCard title={title}/>
+            <SampleCard title={title} body={body}/>
           </div>
         ))}
       </div>
