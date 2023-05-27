@@ -2,10 +2,13 @@
 import {FC} from 'react';
 import NextImage from 'next/image';
 import { styled } from 'styled-components';
+import { MyBar, MyBarChartComp } from './../components/bar_chart';
 
 const CellBase = styled.div`
 margin: 0 50px;
 padding: 8px 14px;
+width:10;
+height:10;
 background: rgba(0, 0, 0, 0.2);
 color: #fff;
 border: 1px solid #fff;
@@ -88,6 +91,7 @@ export const SubItem: FC<Props> = (prop) => {
             <ActionButton onClick={function(){alert("123");}}>0 Comments</ActionButton>
             <ActionButton>0 Likes</ActionButton>
             <ActionButton>0 Views</ActionButton>
+            <MyBarChartComp/>
       </div>
     );
 }

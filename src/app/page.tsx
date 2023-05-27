@@ -1,25 +1,22 @@
-import Link from 'next/link'
+import Link from 'next/link';
+import { reqPosts } from './../lib/getJsonPlaceholder';
+import { SampleCard } from './..//components/sample_cell';
 
-function Home() {
+
+const page = async () => {
+  const reqPostsResult = (await reqPosts.get()).response.data
+
   return (
-    <ul>
-      <li>
-        <Link href="/post/abc">
-          Go to pages/post/[pid].js
-        </Link>
-      </li>
-      <li>
-        <Link href="/post/abc?foo=bar">
-          Also goes to pages/post/[pid].js
-        </Link>
-      </li>
-      <li>
-        <Link href="/post/abc/a-comment">
-          Go to pages/post/[pid]/[comment].js
-        </Link>
-      </li>
-    </ul>
-  )
-}
-
-export default Home
+    <main className="main">
+      <h1 className="title">Blog List</h1>
+      <div className="grid">
+        {reqPostsResult.map(({ id, title, body }) => (
+          <div key={id}>
+            <SampleCard title={title} body={body}/>
+          </div>
+        ))}
+      </div>
+    </main>
+  );
+};
+export default page;
