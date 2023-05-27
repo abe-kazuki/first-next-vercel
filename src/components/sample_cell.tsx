@@ -2,12 +2,11 @@
 import {FC} from 'react';
 import NextImage from 'next/image';
 import { styled } from 'styled-components';
-import { MyBar, MyBarChartComp } from './../components/bar_chart';
+import { MyBarChartComp } from './../components/bar_chart';
 
 const CellBase = styled.div`
 margin: 0 50px;
 padding: 8px 14px;
-width:10;
 height:10;
 background: rgba(0, 0, 0, 0.2);
 color: #fff;
@@ -42,7 +41,6 @@ const ActionButton = styled.button`
   margin: 0 5px;
   padding: 8px 10px;
   background: rgba(155, 155, 155, 0.2);
-  color: #fff;
   cursor: pointer;
   border: 1px solid #fff;
   :hover {
@@ -57,7 +55,7 @@ export type Props = {
 
 export const SampleCard: FC<Props> = (prop) => {
     return (
-        <div style={{ background: '#fff'}}>
+      <div style={{ background: '#fff'}}>
         <CellBase>
             <MailItem title={prop.title} body={prop.body}/>
             <SubItem title={prop.title} body={prop.body}/>
@@ -85,13 +83,10 @@ export const MailItem: FC<Props> = (prop) => {
 export const SubItem: FC<Props> = (prop) => {
     return (
         <div>
-            <Description>
-                {prop.body}
-            </Description>
             <ActionButton onClick={function(){alert("123");}}>0 Comments</ActionButton>
             <ActionButton>0 Likes</ActionButton>
             <ActionButton>0 Views</ActionButton>
-            <MyBarChartComp/>
+            <MyBarChartComp title={prop.title}/>
       </div>
     );
 }

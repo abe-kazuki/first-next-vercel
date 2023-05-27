@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { reqPosts } from './../../lib/getJsonPlaceholder';
-import { MyCard } from './../..//components/card';
+import { createContext } from 'react';
 import { SampleCard } from './../..//components/sample_cell';
 
 
