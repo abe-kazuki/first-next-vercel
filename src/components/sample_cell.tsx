@@ -51,7 +51,7 @@ const ActionButton = styled.button`
 export type Props = {
     title: String;
     body: String;
-    imagePath: String
+    imagePath: string
   }
 
 export const SampleCard: FC<Props> = (prop) => {
@@ -72,7 +72,7 @@ export const MailItem: FC<Props> = (prop) => {
             <Title>{prop.title}</Title>
             <ImageComp
                     className="object-contain"
-                    src='https://storage.googleapis.com/sake-bucket/tarisuka.jpeg'
+                    src={prop.imagePath}
                     alt='logo'
                     width="100"
                     height="150"
