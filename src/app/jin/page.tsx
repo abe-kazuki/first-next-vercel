@@ -1,9 +1,9 @@
-import { reqAlcohols } from './../lib/getJsonPlaceholder';
-import { SampleCard } from './..//components/sample_cell';
+import { reqAlcohols } from './../../lib/getJsonPlaceholder';
+import { SampleCard } from './../../components/sample_cell';
 
 
 const page = async () => {
-  const reqPostsResult = (await reqAlcohols.get(1)).response.data
+  const reqPostsResult = (await reqAlcohols.get(2)).response.data
   
   return (
     <main className="main">

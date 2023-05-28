@@ -45,6 +45,7 @@ export type Props = {
   }
 
 interface RadioProps {
+    key: number
     item: String;
     value: String;
     eval: number;
@@ -56,12 +57,14 @@ export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
 
   // 選択した値を管理（初期値：なし）
   const [val, setVal] = useState('');
+  const [childArray, setKeyToRerender] = useState(prop.list?.map((nomikata: Nomikata) => (nomikata.nomikata_id)));
   
   // ラジオボタンの値がチェンジされた時
-  const handleUpdateUsername = (
+  const handleUpdate = (
     event: any
   ) => {
     setVal(event)
+    setKeyToRerender(nomikata_id)
   };
 
   return (
@@ -70,7 +73,7 @@ export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
         {
         prop.list?.map((nomikata: Nomikata) => (
           <BarChart key={nomikata.nomikata_id}>
-            <MySurvey item={nomikata.name} value={val} eval={nomikata.eval} handler={handleUpdateUsername}/>
+            <MySurvey key={nomikata.nomikata_id} item={nomikata.name} value={val} eval={nomikata.eval} handler={handleUpdate}/>
             <DrinkStyleP htmlFor={nomikata.name}>{nomikata.name}</DrinkStyleP>
             <MyBar title= {nomikata.name} eval= {nomikata.eval} total_eval={total_eval} />
           </BarChart>
@@ -86,16 +89,7 @@ export const MySurvey: FC<RadioProps> = (prop) => {
   const item = String(prop.item)
   const value = String(prop.value)
   const [evalation, setVal] = useState(prop.eval);
-  useEffect(
-    () => {
-      if (!didMountRef.current) {
-        didMountRef.current = true;
-      } else {
-        //アップデートの処理
-      }
-    },
-    [evalation],
-  );
+  
 
   const handle = () => {
     setVal(evalation+1)
@@ -129,6 +123,7 @@ export const MyBar: FC<Props> = (prop) => {
     const ctx = getContext();
     ctx.fillStyle = '#eb6b10'; // 矩形色
     ctx.lineWidth = 2; // 矩形線幅
+    ctx.fillText(`${ratio * 100}%`, 100, 100);
     ctx.fillRect(0, 0, ratio*magnification, 100); // 矩形描画
   }, [prop.eval]);
 
