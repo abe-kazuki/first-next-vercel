@@ -45,7 +45,7 @@ export const MyBarChartComp: FC<Props> = (prop) => {
 
   // 選択した値を管理（初期値：なし）
   const [val, setVal] = useState('');
-
+  
   // ラジオボタンの値がチェンジされた時
   const handleUpdateUsername = (
     event: any
@@ -101,7 +101,7 @@ export const MyBar: FC<Props> = (prop) => {
     ctx.fillStyle = '#eb6b10'; // 矩形色
     ctx.lineWidth = 2; // 矩形線幅
     ctx.fillRect(0, 0, prop.eval, 100); // 矩形描画
-  }, []);
+  }, [prop.eval]);
 
   return (
     <div>

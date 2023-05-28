@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
 export const cliant = axios.create({
-    baseURL: "https://jsonplaceholder.typicode.com",
+    baseURL: "https://project-sake.an.r.appspot.com/",
     withCredentials: true,
 })
 

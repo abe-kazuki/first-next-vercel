@@ -1,19 +1,27 @@
+
 import { cliant,requestResults } from './../service/api';
 
-export type postType = {
-    userId: number;
-    id: number;
-    title: string;
-    body: string;
+  
+export type Alcohol = {
+  meigaraId: number;
+  osakeName: string;
+  imagePath: string;
+  nomikata: Nomikata;
+  };
+
+export type Nomikata = {
+  nomikata_id: number;
+  name: string;
+  eval: number;
   };
   
-  type postsType = postType[];
-  
-export const reqPosts = {
-  get: () => {
-    return requestResults<postsType>(
-      cliant.get<postsType>(
-        "/posts", {}
+  type Alcohols = Alcohol[];
+
+export const reqAlcohols = {
+  get: (category_id: number) => {
+    return requestResults<Alcohols>(
+      cliant.get<Alcohols>(
+        `/categories/${category_id}/alcohols`, {}
       )
     )
   }
