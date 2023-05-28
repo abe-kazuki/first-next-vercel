@@ -51,7 +51,6 @@ const ActionButton = styled.button`
 
 export type Props = {
     title: String;
-    body: String;
     imagePath: string;
     nomikatas: Nomikatas
   }
@@ -60,8 +59,8 @@ export const SampleCard: FC<Props> = (prop) => {
     return (
       <div style={{ background: '#fff'}}>
         <CellBase>
-            <MailItem title={prop.title} body={prop.body} imagePath={prop.imagePath} nomikatas={prop.nomikatas}/>
-            <SubItem title={prop.title} body={prop.body} imagePath={prop.imagePath} nomikatas={prop.nomikatas}/>
+            <MailItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas}/>
+            <SubItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas}/>
         </CellBase>
       </div>
     );
@@ -75,8 +74,8 @@ export const MailItem: FC<Props> = (prop) => {
                     className="object-contain"
                     src={prop.imagePath}
                     alt='logo'
-                    width="100"
-                    height="150"
+                    width="200"
+                    height="250"
                     />
         </div>
     );

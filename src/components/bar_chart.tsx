@@ -20,12 +20,6 @@ padding: 10px 5px;
 display: flex;
 `
 
-const radioStyle= styled.div`
-margin: 0 10px;
-padding: 10px 5px;
-display: flex;
-`
-
 const DrinkStyleP = styled.label`
   margin: 0 10px;
   color: #fff;
@@ -51,32 +45,16 @@ interface RadioProps {
     eval: number;
     handler: (event: any) => void;
   }
-
+//, handler:((nomikatas_id: number) => void)
 export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
   const total_eval = prop.list.reduce((sum, item) => sum + item.eval, 0);
-
-  // 選択した値を管理（初期値：なし）
-  const [val, setVal] = useState('');
-  const [childArray, setKeyToRerender] = useState(prop.list?.map((nomikata: Nomikata) => (nomikata.nomikata_id)));
-  
-  // ラジオボタンの値がチェンジされた時
-  const handleUpdate = (
-    event: any
-  ) => {
-    setVal(event)
-    //setKeyToRerender(nomikata_id)
-  };
 
   return (
   <div>
       <CellBase>
         {
-        prop.list?.map((nomikata: Nomikata) => (
-          <BarChart key={nomikata.nomikata_id}>
-            <MySurvey key={nomikata.nomikata_id} item={nomikata.name} value={val} eval={nomikata.eval} handler={handleUpdate}/>
-            <DrinkStyleP htmlFor={nomikata.name}>{nomikata.name}</DrinkStyleP>
-            <MyBar title= {nomikata.name} eval= {nomikata.eval} total_eval={total_eval} />
-          </BarChart>
+        prop.list?.map((nomikata: Nomikata, index: number) => (
+          <BarCharts nomikata={nomikata} total_eval={total_eval}/>
         ))
         }
       </CellBase>
@@ -84,26 +62,47 @@ export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
   )
 }
 
+export const BarCharts: FC<({nomikata: Nomikata, total_eval: number})> = (prop) => {
+  // 選択した値を管理（初期値：なし）
+  const [val, setVal] = useState('');
+  const [evaluation, setEval] = useState(prop.nomikata.eval);
+  const [total_evaluation, setToalEval] = useState(prop.total_eval);
+  
+  
+  // ラジオボタンの値がチェンジされた時
+  const handleUpdate = (
+    event: any
+  ) => {
+    setVal(event)
+    setEval(evaluation + 1)
+    setToalEval(total_evaluation + 1)
+  };
+
+  return (
+    <div>
+        <BarChart key={prop.nomikata.nomikata_id}>
+            <MySurvey key={prop.nomikata.nomikata_id} item={prop.nomikata.name} value={val} eval={prop.nomikata.eval} handler={handleUpdate}/>
+            <DrinkStyleP htmlFor={prop.nomikata.name}>{prop.nomikata.name}</DrinkStyleP>
+            <MyBar title= {prop.nomikata.name} eval={evaluation} total_eval={total_evaluation} />
+            <DrinkStyleP htmlFor={String(prop.nomikata.eval)}>{String(evaluation)}</DrinkStyleP>
+        </BarChart>
+    </div>
+  )
+}
+
 export const MySurvey: FC<RadioProps> = (prop) => {
   const didMountRef = useRef(false);
   const item = String(prop.item)
   const value = String(prop.value)
-  const [evalation, setVal] = useState(prop.eval);
-  
-
-  const handle = () => {
-    setVal(evalation+1)
-    alert(`阿部：後${evalation}`);
-  };
   
   return (
-    <div key={item}>
+    <div key={prop.eval}>
       <input
         id={item}
         type="radio"
         value={value}
         checked={item === value}
-        onClick={(e) => {prop.handler(item); handle();}}
+        onClick={(e) => {prop.handler(prop.item);}}
       />
     </div>
   )

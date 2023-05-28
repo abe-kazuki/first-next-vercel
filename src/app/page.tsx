@@ -1,5 +1,5 @@
 import { reqAlcohols } from './../lib/getJsonPlaceholder';
-import { SampleCard } from './..//components/sample_cell';
+import { SampleCard } from './../components/sample_cell';
 
 
 const page = async () => {
@@ -11,7 +11,7 @@ const page = async () => {
         {reqPostsResult.map(({ meigaraId, osakeName, imagePath, nomikata }) => 
         (
           <div key={meigaraId}>
-            <SampleCard title={osakeName} body={`ボディー`} imagePath={imagePath} nomikatas={nomikata}/>
+            <SampleCard title={osakeName} imagePath={imagePath} nomikatas={nomikata}/>
           </div>
         ))}
       </div>

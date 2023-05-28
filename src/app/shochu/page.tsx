@@ -11,7 +11,7 @@ const page = async () => {
         {reqPostsResult.map(({ meigaraId, osakeName, imagePath, nomikata }) => 
         (
           <div key={meigaraId}>
-            <SampleCard title={osakeName} body={`ボディー`} imagePath={imagePath} nomikatas={nomikata}/>
+            <SampleCard title={osakeName} imagePath={imagePath} nomikatas={nomikata}/>
           </div>
         ))}
       </div>

@@ -23,7 +23,7 @@ const header = () => {
   return (
     <header>
       <nav className="p-2">
-        <img src="/vercel.svg" className="w-32" width="300" height="500"/>
+        <img src="/messageImage_1685262535471.jpg" className="w-32" width="600" height="5000"/>
         <UlComp className="flex items-center space-x-2">
           <LiComp>
             <Link href="/" >ウイスキー</Link>

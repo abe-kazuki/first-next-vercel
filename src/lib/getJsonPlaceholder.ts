@@ -37,10 +37,10 @@ export const reqAlcohols = {
       )
     )
   },
-  patch: (alcohol_id: number, nomikatas_id: number,) => {
+  patch: (meigaraId: number, nomikatas_id: number) => {
     return requestResults<PatchRes>(
       cliant.patch<PatchRes>(
-        `/alcohols/${alcohol_id}/nomikatas/${nomikatas_id}/`, {}
+        `/meigaras/${meigaraId}/nomikatas/${nomikatas_id}`, {}
       )
     )
   }
