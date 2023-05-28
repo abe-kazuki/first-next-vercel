@@ -124,7 +124,7 @@ export const MyBar: FC<Props> = (prop) => {
     ctx.lineWidth = 2; // 矩形線幅
     ctx.fillText(`${ratio * 100}%`, 100, 100);
     ctx.fillRect(0, 0, ratio*magnification, 100); // 矩形描画
-  }, [prop.eval]);
+  }, [prop.eval, ratio]);
 
   return (
     <div>
