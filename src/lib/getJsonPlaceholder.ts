@@ -6,7 +6,7 @@ export type Alcohol = {
   meigaraId: number;
   osakeName: string;
   imagePath: string;
-  nomikata: Nomikata;
+  nomikata: Nomikatas;
   };
 
 export type Nomikata = {
@@ -14,14 +14,33 @@ export type Nomikata = {
   name: string;
   eval: number;
   };
-  
-  type Alcohols = Alcohol[];
+
+export type Nomikatas = Nomikata[];  
+type Alcohols = Alcohol[];
+
+export type PatchRes = {
+  statusCode: number;
+  };
 
 export const reqAlcohols = {
   get: (category_id: number) => {
     return requestResults<Alcohols>(
       cliant.get<Alcohols>(
         `/categories/${category_id}/alcohols`, {}
+      )
+    )
+  },
+  mock_get: (category_id: number) => {
+    return requestResults<Alcohols>(
+      cliant.get<Alcohols>(
+        `teratest`, {}
+      )
+    )
+  },
+  patch: (alcohol_id: number, nomikatas_id: number,) => {
+    return requestResults<PatchRes>(
+      cliant.patch<PatchRes>(
+        `/alcohols/${alcohol_id}/nomikatas/${nomikatas_id}/`, {}
       )
     )
   }
