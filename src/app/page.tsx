@@ -4,6 +4,10 @@ import { SampleCard } from './../components/sample_cell';
 
 const page = async () => {
   const reqPostsResult = (await reqAlcohols.get(1)).response.data
+
+  const parentToChild = () => {
+    setData("This is data from Parent Component to the Child Component.");
+  }
   
   return (
     <main className="main">
@@ -11,11 +15,12 @@ const page = async () => {
         {reqPostsResult.map(({ meigaraId, osakeName, imagePath, nomikata }) => 
         (
           <div key={meigaraId}>
-            <SampleCard title={osakeName} imagePath={imagePath} nomikatas={nomikata}/>
+            <SampleCard title={osakeName} imagePath={imagePath} nomikatas={nomikata} meigaraId={meigaraId}/>
           </div>
         ))}
       </div>
     </main>
   );
 };
+
 export default page;

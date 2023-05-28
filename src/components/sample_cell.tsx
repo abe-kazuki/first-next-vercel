@@ -3,7 +3,7 @@ import {FC} from 'react';
 import NextImage from 'next/image';
 import { styled } from 'styled-components';
 import { MyBarChartComp } from './../components/bar_chart';
-import { Nomikatas } from './../lib/getJsonPlaceholder';
+import { Nomikatas, reqAlcohols } from './../lib/getJsonPlaceholder';
 
 const CellBase = styled.div`
 margin: 0 50px;
@@ -53,14 +53,15 @@ export type Props = {
     title: String;
     imagePath: string;
     nomikatas: Nomikatas
+    meigaraId: number
   }
 
 export const SampleCard: FC<Props> = (prop) => {
     return (
       <div style={{ background: '#fff'}}>
         <CellBase>
-            <MailItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas}/>
-            <SubItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas}/>
+            <MailItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas} meigaraId={prop.meigaraId}/>
+            <SubItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas} meigaraId={prop.meigaraId}/>
         </CellBase>
       </div>
     );
@@ -87,7 +88,10 @@ export const SubItem: FC<Props> = (prop) => {
             <ActionButton onClick={function(){alert(prop.nomikatas.length);}}>0 Comments</ActionButton>
             <ActionButton>0 Likes</ActionButton>
             <ActionButton>0 Views</ActionButton>
-            <MyBarChartComp list={prop.nomikatas}/>
+            <MyBarChartComp list={prop.nomikatas} handle={(nomikatas_id: number)=> {
+              //reqAlcohols.patch(prop.meigaraId, nomikatas_id)
+              alert(reqAlcohols.patch(prop.meigaraId, nomikatas_id))
+            }}/>
       </div>
     );
 }

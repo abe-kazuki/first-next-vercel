@@ -19,7 +19,7 @@ export type Nomikatas = Nomikata[];
 type Alcohols = Alcohol[];
 
 export type PatchRes = {
-  statusCode: number;
+  status: number;
   };
 
 export const reqAlcohols = {
@@ -38,6 +38,7 @@ export const reqAlcohols = {
     )
   },
   patch: (meigaraId: number, nomikatas_id: number) => {
+    alert(`/meigaras/${meigaraId}/nomikatas/${nomikatas_id}`)
     return requestResults<PatchRes>(
       cliant.patch<PatchRes>(
         `/meigaras/${meigaraId}/nomikatas/${nomikatas_id}`, {}

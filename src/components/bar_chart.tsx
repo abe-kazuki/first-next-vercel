@@ -46,7 +46,7 @@ interface RadioProps {
     handler: (event: any) => void;
   }
 //, handler:((nomikatas_id: number) => void)
-export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
+export const MyBarChartComp: FC<({list: Nomikatas, handle:(nomikatas_id: number) => void})> = (prop) => {
   const total_eval = prop.list.reduce((sum, item) => sum + item.eval, 0);
 
   return (
@@ -54,7 +54,7 @@ export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
       <CellBase>
         {
         prop.list?.map((nomikata: Nomikata, index: number) => (
-          <BarCharts key={nomikata.nomikata_id} nomikata={nomikata} total_eval={total_eval}/>
+          <BarCharts key={nomikata.nomikata_id} nomikata={nomikata} total_eval={total_eval} handle={(nomikatas_id) => prop.handle(nomikatas_id)}/>
         ))
         }
       </CellBase>
@@ -62,7 +62,7 @@ export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
   )
 }
 
-export const BarCharts: FC<({nomikata: Nomikata, total_eval: number})> = (prop) => {
+export const BarCharts: FC<({nomikata: Nomikata, total_eval: number, handle:(nomikatas_id: number) => void})> = (prop) => {
   // 選択した値を管理（初期値：なし）
   const [val, setVal] = useState('');
   const [evaluation, setEval] = useState(prop.nomikata.eval);
@@ -76,6 +76,7 @@ export const BarCharts: FC<({nomikata: Nomikata, total_eval: number})> = (prop) 
     setVal(event)
     setEval(evaluation + 1)
     setToalEval(total_evaluation + 1)
+    prop.handle(prop.nomikata.nomikata_id)
   };
 
   return (
