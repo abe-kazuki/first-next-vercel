@@ -54,7 +54,7 @@ export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
       <CellBase>
         {
         prop.list?.map((nomikata: Nomikata, index: number) => (
-          <BarCharts nomikata={nomikata} total_eval={total_eval}/>
+          <BarCharts key={nomikata.nomikata_id} nomikata={nomikata} total_eval={total_eval}/>
         ))
         }
       </CellBase>
