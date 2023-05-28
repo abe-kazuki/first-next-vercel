@@ -3,6 +3,7 @@ import {FC} from 'react';
 import { styled } from 'styled-components';
 import { useState, useCallback, useReducer } from 'react';
 import React, {useEffect, useRef} from 'react';
+import { Nomikata, Nomikatas} from './../lib/getJsonPlaceholder';
 
 const CellBase = styled.div`
 padding: 10px 10px;
@@ -19,9 +20,22 @@ padding: 10px 5px;
 display: flex;
 `
 
+const radioStyle= styled.div`
+margin: 0 10px;
+padding: 10px 5px;
+display: flex;
+`
+
 const DrinkStyleP = styled.label`
+  margin: 0 10px;
   color: #fff;
   font-weight: 300;
+  inline-size: 100px;
+  overflow-wrap: break-word;
+`
+
+const Blank = styled.canvas`
+width: 10%
 `
 
 export type Props = {
@@ -33,15 +47,12 @@ export type Props = {
 interface RadioProps {
     item: String;
     value: String;
+    eval: number;
     handler: (event: any) => void;
   }
 
-export const MyBarChartComp: FC<Props> = (prop) => {
-  const magnification: number = 1000
-  // useStateの()には初期値を設定する
-  const items = ['アイテム１', 'アイテム２', 'アイテム３', 'その他'];
-  const items_score = [0.2, 0.4, 0.15, 0.25];
-  const isFirstRender = useRef(true);
+export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
+  const total_eval = prop.list.reduce((sum, item) => sum + item.eval, 0);
 
   // 選択した値を管理（初期値：なし）
   const [val, setVal] = useState('');
@@ -57,11 +68,11 @@ export const MyBarChartComp: FC<Props> = (prop) => {
   <div>
       <CellBase>
         {
-        items.map((value) => (
-          <BarChart key={value}>
-            <MySurvey item={value} value={val} handler={handleUpdateUsername}/>
-            <DrinkStyleP htmlFor={value}>{value}</DrinkStyleP>
-            <MyBar title= {prop.title} eval= {items_score[0]*magnification} total_eval={10} />
+        prop.list?.map((nomikata: Nomikata) => (
+          <BarChart key={nomikata.nomikata_id}>
+            <MySurvey item={nomikata.name} value={val} eval={nomikata.eval} handler={handleUpdateUsername}/>
+            <DrinkStyleP htmlFor={nomikata.name}>{nomikata.name}</DrinkStyleP>
+            <MyBar title= {nomikata.name} eval= {nomikata.eval} total_eval={total_eval} />
           </BarChart>
         ))
         }
@@ -71,9 +82,25 @@ export const MyBarChartComp: FC<Props> = (prop) => {
 }
 
 export const MySurvey: FC<RadioProps> = (prop) => {
-  
+  const didMountRef = useRef(false);
   const item = String(prop.item)
   const value = String(prop.value)
+  const [evalation, setVal] = useState(prop.eval);
+  useEffect(
+    () => {
+      if (!didMountRef.current) {
+        didMountRef.current = true;
+      } else {
+        //アップデートの処理
+      }
+    },
+    [evalation],
+  );
+
+  const handle = () => {
+    setVal(evalation+1)
+    alert(`阿部：後${evalation}`);
+  };
   
   return (
     <div key={item}>
@@ -82,7 +109,7 @@ export const MySurvey: FC<RadioProps> = (prop) => {
         type="radio"
         value={value}
         checked={item === value}
-        onClick={(e) => prop.handler(item)}
+        onClick={(e) => {prop.handler(item); handle();}}
       />
     </div>
   )
@@ -90,6 +117,8 @@ export const MySurvey: FC<RadioProps> = (prop) => {
 
 export const MyBar: FC<Props> = (prop) => {
   const canvasRef = useRef(null);
+  const ratio = prop.eval/prop.total_eval
+  const magnification: number = 1000
 
   const getContext = (): CanvasRenderingContext2D => {
     const canvas: any = canvasRef.current;
@@ -100,12 +129,12 @@ export const MyBar: FC<Props> = (prop) => {
     const ctx = getContext();
     ctx.fillStyle = '#eb6b10'; // 矩形色
     ctx.lineWidth = 2; // 矩形線幅
-    ctx.fillRect(0, 0, prop.eval, 100); // 矩形描画
+    ctx.fillRect(0, 0, ratio*magnification, 100); // 矩形描画
   }, [prop.eval]);
 
   return (
     <div>
-      <canvas ref={canvasRef} width={prop.eval} height={20} />
+      <canvas ref={canvasRef} width={ratio*magnification} height={20} />
     </div>
   )    
 }

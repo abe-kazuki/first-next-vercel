@@ -3,6 +3,7 @@ import {FC} from 'react';
 import NextImage from 'next/image';
 import { styled } from 'styled-components';
 import { MyBarChartComp } from './../components/bar_chart';
+import { Nomikatas } from './../lib/getJsonPlaceholder';
 
 const CellBase = styled.div`
 margin: 0 50px;
@@ -19,7 +20,7 @@ display: flex;
 const Title = styled.h2`
   color: #fff;
   font-weight: 300;
-  inline-size: 150px;
+  inline-size: 200px;
   overflow-wrap: break-word;
 `
 const Date = styled.div`
@@ -51,15 +52,16 @@ const ActionButton = styled.button`
 export type Props = {
     title: String;
     body: String;
-    imagePath: string
+    imagePath: string;
+    nomikatas: Nomikatas
   }
 
 export const SampleCard: FC<Props> = (prop) => {
     return (
       <div style={{ background: '#fff'}}>
         <CellBase>
-            <MailItem title={prop.title} body={prop.body} imagePath={prop.imagePath}/>
-            <SubItem title={prop.title} body={prop.body} imagePath={prop.imagePath}/>
+            <MailItem title={prop.title} body={prop.body} imagePath={prop.imagePath} nomikatas={prop.nomikatas}/>
+            <SubItem title={prop.title} body={prop.body} imagePath={prop.imagePath} nomikatas={prop.nomikatas}/>
         </CellBase>
       </div>
     );
@@ -68,7 +70,6 @@ export const SampleCard: FC<Props> = (prop) => {
 export const MailItem: FC<Props> = (prop) => {
     return (
         <div>
-            <Date>3/2/2019</Date>
             <Title>{prop.title}</Title>
             <ImageComp
                     className="object-contain"
@@ -84,10 +85,10 @@ export const MailItem: FC<Props> = (prop) => {
 export const SubItem: FC<Props> = (prop) => {
     return (
         <div>
-            <ActionButton onClick={function(){alert(prop.title);}}>0 Comments</ActionButton>
+            <ActionButton onClick={function(){alert(prop.nomikatas.length);}}>0 Comments</ActionButton>
             <ActionButton>0 Likes</ActionButton>
             <ActionButton>0 Views</ActionButton>
-            <MyBarChartComp title={prop.title}/>
+            <MyBarChartComp list={prop.nomikatas}/>
       </div>
     );
 }

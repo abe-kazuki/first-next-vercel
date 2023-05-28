@@ -7,7 +7,6 @@ export type Props = {
 }
 
 export const MyCard: FC<Props> = (prop) => {
-  console.log(prop)
   return (
     <Card css={{ mw: "400px" }}>
       <Card.Body>
