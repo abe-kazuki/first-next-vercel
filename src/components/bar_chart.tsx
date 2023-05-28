@@ -64,7 +64,7 @@ export const MyBarChartComp: FC<({list: Nomikatas})> = (prop) => {
     event: any
   ) => {
     setVal(event)
-    setKeyToRerender(nomikata_id)
+    //setKeyToRerender(nomikata_id)
   };
 
   return (
