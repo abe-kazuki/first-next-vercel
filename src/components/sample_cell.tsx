@@ -3,7 +3,8 @@ import {FC} from 'react';
 import NextImage from 'next/image';
 import { styled } from 'styled-components';
 import { MyBarChartComp } from './../components/bar_chart';
-import { Nomikatas, reqAlcohols } from './../lib/getJsonPlaceholder';
+import { Nomikatas, reqAlcohols, PatchRes} from './../lib/getJsonPlaceholder';
+import {SuccessResult, FailResult} from './../../src/service/api';
 
 const CellBase = styled.div`
 margin: 0 50px;
@@ -88,9 +89,9 @@ export const SubItem: FC<Props> = (prop) => {
             <ActionButton onClick={function(){alert(prop.nomikatas.length);}}>0 Comments</ActionButton>
             <ActionButton>0 Likes</ActionButton>
             <ActionButton>0 Views</ActionButton>
-            <MyBarChartComp list={prop.nomikatas} handle={(nomikatas_id: number)=> {
-              //reqAlcohols.patch(prop.meigaraId, nomikatas_id)
-              alert(reqAlcohols.patch(prop.meigaraId, nomikatas_id))
+            <MyBarChartComp list={prop.nomikatas} handle={async (nomikatas_id: number)  => {
+              await reqAlcohols.patch(prop.meigaraId, nomikatas_id).
+              then((res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {alert(res.response?.code)})
             }}/>
       </div>
     );
