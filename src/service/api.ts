@@ -1,8 +1,8 @@
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import axios, {AxiosResponse, AxiosError } from "axios";
 
 const headers = {
-    'Content-Type' : 'application/x-www-form-urlencoded',
-    'Accept': 'Application/json',
+    "Accept":"application/json, text/plain, /",
+    "Content-Type": "multipart/form-data",
     'Access-Control-Allow-Origin' : '*',
     'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   };

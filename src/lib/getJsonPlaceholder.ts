@@ -16,7 +16,7 @@ export type Nomikata = {
   };
 
 export type Nomikatas = Nomikata[];  
-type Alcohols = Alcohol[];
+export type Alcohols = Alcohol[];
 
 export type PatchRes = {
   status: number;

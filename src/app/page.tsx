@@ -1,9 +1,9 @@
-import { reqAlcohols } from './../lib/getJsonPlaceholder';
+import { reqAlcohols, Alcohols } from './../lib/getJsonPlaceholder';
 import { SampleCard } from './../components/sample_cell';
-
+import { SuccessResult } from './../service/api';
 
 const page = async () => {
-  const reqPostsResult = (await reqAlcohols.get(1))?.response.data
+  const reqPostsResult: Alcohols = ((await reqAlcohols.get(1)) as SuccessResult<Alcohols>).response.data
   
   return (
     <main className="main">
