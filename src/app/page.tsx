@@ -4,10 +4,6 @@ import { SampleCard } from './../components/sample_cell';
 
 const page = async () => {
   const reqPostsResult = (await reqAlcohols.get(1)).response.data
-
-  const parentToChild = () => {
-    setData("This is data from Parent Component to the Child Component.");
-  }
   
   return (
     <main className="main">
