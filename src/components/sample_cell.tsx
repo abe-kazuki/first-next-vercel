@@ -1,7 +1,7 @@
 'use client';
 import {FC} from 'react';
 import NextImage from 'next/image';
-import { styled } from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import { MyBarChartComp } from './../components/bar_chart';
 import { Nomikatas, reqAlcohols, PatchRes} from './../lib/getJsonPlaceholder';
 import {SuccessResult, FailResult} from './../../src/service/api';
@@ -50,6 +50,24 @@ const ActionButton = styled.button`
   }
 `
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+`;
+export const FadeIn = styled.div<{ duration: number }>`
+  animation: ${fadeIn} ${props => props.duration}s;
+`;
+
+const rotate = keyframes`
+  to {
+    transform: rotate(360deg);
+  }
+`
+
 export type Props = {
     title: String;
     imagePath: string;
@@ -59,6 +77,7 @@ export type Props = {
 
 export const SampleCard: FC<Props> = (prop) => {
     return (
+      
       <div style={{ background: '#fff'}}>
         <CellBase>
             <MailItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas} meigaraId={prop.meigaraId}/>
@@ -91,7 +110,7 @@ export const SubItem: FC<Props> = (prop) => {
             <ActionButton>0 Views</ActionButton>
             <MyBarChartComp list={prop.nomikatas} handle={async (nomikatas_id: number)  => {
               await reqAlcohols.patch(prop.meigaraId, nomikatas_id).
-              then((res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {alert(res.response)})
+              then((res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {alert(res.response.message)})
             }}/>
       </div>
     );

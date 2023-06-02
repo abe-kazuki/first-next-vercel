@@ -1,17 +1,18 @@
 import { reqAlcohols, Alcohols } from './../lib/getJsonPlaceholder';
-import { SampleCard } from './../components/sample_cell';
+import { SampleCard, FadeIn } from './../components/sample_cell';
 import { SuccessResult } from './../service/api';
 
 const page = async () => {
   const reqPostsResult: Alcohols = ((await reqAlcohols.get(1)) as SuccessResult<Alcohols>).response.data
-  
   return (
     <main className="main">
       <div className="grid">
-        {reqPostsResult?.map(({ meigaraId, osakeName, imagePath, nomikata }) => 
+        {reqPostsResult?.map(({ meigaraId, osakeName, imagePath, nomikata }, index) => 
         (
           <div key={meigaraId}>
-            <SampleCard title={osakeName} imagePath={imagePath} nomikatas={nomikata} meigaraId={meigaraId}/>
+            <FadeIn duration={index*2.5}>
+              <SampleCard title={osakeName} imagePath={imagePath} nomikatas={nomikata} meigaraId={meigaraId}/>
+            </FadeIn>
           </div>
         ))}
       </div>
