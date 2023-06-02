@@ -30,10 +30,10 @@ const DrinkStyleP = styled.label`
 
 const fadeIn = keyframes`
   from {
-    opacity: 0;
+    width: 50%;
   }
   to {
-    opacity: 100;
+    width: 100%;
   }
 `;
 
