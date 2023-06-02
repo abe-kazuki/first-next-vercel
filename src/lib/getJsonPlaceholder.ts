@@ -1,4 +1,5 @@
 
+import { patchFetch } from 'next/dist/server/lib/patch-fetch';
 import { cliant,requestResults } from './../service/api';
 
   
@@ -26,7 +27,7 @@ export const reqAlcohols = {
   get: (category_id: number) => {
     return requestResults<Alcohols>(
       cliant.get<Alcohols>(
-        `/categories/${category_id}/alcohols`, {}
+        `categories/${category_id}/alcohols`, {}
       )
     )
   },
@@ -41,14 +42,8 @@ export const reqAlcohols = {
     
     return requestResults<PatchRes>(
       cliant.patch<PatchRes>(
-        `/meigaras/${meigaraId}/nomikatas/${nomikatas_id}`, {}
+        `meigaras/${meigaraId}/nomikatas/${nomikatas_id}`, {}
       )
     )
   }
 }
-
-  // export const getPosts = async ():Promise<postsType> => {
-  //   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  //   if (!res.ok) throw new Error('getPostsで異常が発生しました。');
-  //   return res.json()
-  // };

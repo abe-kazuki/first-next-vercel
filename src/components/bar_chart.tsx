@@ -1,6 +1,6 @@
 'use client';
 import {FC} from 'react';
-import { styled } from 'styled-components';
+import { styled, keyframes } from 'styled-components';
 import { useState, useCallback, useReducer } from 'react';
 import React, {useEffect, useRef} from 'react';
 import { Nomikata, Nomikatas} from './../lib/getJsonPlaceholder';
@@ -28,9 +28,19 @@ const DrinkStyleP = styled.label`
   overflow-wrap: break-word;
 `
 
-const Blank = styled.canvas`
-width: 10%
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+`;
+
+const CustomCanvas = styled.canvas<{ duration: number }>`
+animation: ${fadeIn} ${props => props.duration}s;
 `
+
 
 export type Props = {
     title: String;
@@ -137,7 +147,7 @@ export const MyBar: FC<Props> = (prop) => {
 
   return (
     <div>
-      <canvas ref={canvasRef} width={ratio*magnification} height={20} />
+      <CustomCanvas ref={canvasRef} width={ratio*magnification} height={20} duration={2}/>
     </div>
   )    
 }

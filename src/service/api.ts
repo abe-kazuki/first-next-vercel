@@ -1,14 +1,12 @@
 import axios, {AxiosResponse, AxiosError } from "axios";
 
 const headers = {
-    "Accept":"application/json, text/plain, /",
-    "Content-Type": "multipart/form-data",
-    'Access-Control-Allow-Origin' : '*',
-    'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+    "Content-Type": "application/json;charset=UTF-8"
   };
 export const cliant = axios.create({
-    baseURL: "https://project-sake.an.r.appspot.com/",
-    withCredentials: false,
+    baseURL: "https://project-sake.an.r.appspot.com:443/",
+    httpAgent: "curl/7.86.0",
+    withCredentials: true,
     headers: headers
 })
 
