@@ -77,7 +77,6 @@ export type Props = {
 
 export const SampleCard: FC<Props> = (prop) => {
     return (
-      
       <div style={{ background: '#fff'}}>
         <CellBase>
             <MailItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas} meigaraId={prop.meigaraId}/>

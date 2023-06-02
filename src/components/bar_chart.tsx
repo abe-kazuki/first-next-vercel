@@ -6,7 +6,7 @@ import React, {useEffect, useRef} from 'react';
 import { Nomikata, Nomikatas} from './../lib/getJsonPlaceholder';
 
 const CellBase = styled.div`
-padding: 10px 10px;
+margin: 10px 10px;
 background: rgba(0, 0, 0, 0.2);
 color: #fff;
 border: 1px solid #fff;
@@ -16,7 +16,7 @@ border-radius: 30px 30px 30px 30px;
 
 const BarChart= styled.div`
 margin: 0 10px;
-padding: 10px 5px;
+padding: 10px 0px;
 display: flex;
 `
 
