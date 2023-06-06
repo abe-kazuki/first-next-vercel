@@ -1,12 +1,10 @@
 import axios, {AxiosResponse, AxiosError } from "axios";
 
 const headers = {
-    "Content-Type": "application/json;charset=UTF-8"
+    "Content-Type": "application/json;charset=UTF-8",
   };
 export const cliant = axios.create({
     baseURL: "https://project-sake.an.r.appspot.com:443/",
-    httpAgent: "curl/7.86.0",
-    withCredentials: true,
     headers: headers
 })
 
