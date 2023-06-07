@@ -1,9 +1,10 @@
+
 import {
-    css
-},  from 'styled-components';
-import SimpleInterpolation from "styled-components"
-import FlattenSimpleInterpolation from "styled-components"
-import CSSObject from "styled-components"
+    css,
+    CSSObject,
+    FlattenSimpleInterpolation,
+    SimpleInterpolation,
+} from 'styled-components';
 
 export const sp = (
     first: CSSObject | TemplateStringsArray,
@@ -30,3 +31,4 @@ export const pc = (
         ${css(first, ...interpolations)}
     }
 `;
+

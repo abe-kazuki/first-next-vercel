@@ -5,6 +5,7 @@ import styled, {keyframes} from 'styled-components';
 import { MyBarChartComp } from './../components/bar_chart';
 import { Nomikatas, reqAlcohols, PatchRes} from './../lib/getJsonPlaceholder';
 import {SuccessResult, FailResult} from './../../src/service/api';
+import { pc, sp, tab } from './../media';
 
 const CellBase = styled.div`
 margin: 0 50px;
@@ -15,7 +16,14 @@ color: #fff;
 border: 1px solid #fff;
 font-weight: 300;
 border-radius: 30px 30px 30px 30px;
+${sp`
+`}
+${tab`
+display: flex;
+`}
+${pc`
 display: flex; 
+`}
 `
 
 const Title = styled.h2`

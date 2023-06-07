@@ -4,27 +4,57 @@ import { styled, keyframes } from 'styled-components';
 import { useState, useCallback, useReducer } from 'react';
 import React, {useEffect, useRef} from 'react';
 import { Nomikata, Nomikatas} from './../lib/getJsonPlaceholder';
+import { pc, sp, tab } from './../media';
 
 const CellBase = styled.div`
 margin: 10px 10px;
 background: rgba(0, 0, 0, 0.2);
 border: 1px solid #fff;
-font-weight: 300;
 border-radius: 30px 30px 30px 30px;
+${sp`
+font-weight: 100;
+`}
+${tab`
+font-weight: 300;
+`}
+${pc`
+font-weight: 300;
+`}
 `
 
 const BarChart= styled.div`
 margin: 0 10px;
 padding: 10px 0px;
+${sp`
+`}
+${tab`
+`}
+${pc`
+display: flex;
+`}
+`
+
+const BarChartMain= styled.div`
+margin: 0 10px;
+${sp`
+margin: 0 20px;
+`}
+${tab`
+margin: 0 20px;
+`}
+display: flex;
+`
+
+const BarChartSub= styled.div`
+margin: 0 20px;
 display: flex;
 `
 
 const DrinkStyleP = styled.label`
-  margin: 0 10px;
-  color: #fff;
-  font-weight: 300;
-  inline-size: 75px;
-  overflow-wrap: break-word;
+margin: 0 10px;
+color: #fff;
+font-weight: 300;
+inline-size: 100px;
 `
 
 const fadeIn = keyframes`
@@ -98,10 +128,14 @@ export const BarCharts: FC<({nomikata: Nomikata, total_eval: number, disable: bo
   return (
     <div>
         <BarChart key={prop.nomikata.nomikata_id}>
-            <MySurvey key={prop.nomikata.nomikata_id} item={prop.nomikata.name} value={val} handler={handleUpdate} disable={prop.disable}/>
-            <DrinkStyleP htmlFor={prop.nomikata.name}>{prop.nomikata.name}</DrinkStyleP>
+          <BarChartSub key={prop.nomikata.nomikata_id}>
+              <MySurvey key={prop.nomikata.nomikata_id} item={prop.nomikata.name} value={val} handler={handleUpdate} disable={prop.disable}/>
+              <DrinkStyleP htmlFor={prop.nomikata.name}>{prop.nomikata.name}</DrinkStyleP>
+          </BarChartSub>
+          <BarChartMain>
             <MyBar title= {prop.nomikata.name} ratio={ratio}/>
             <DrinkStyleP htmlFor={String(prop.nomikata.eval)}>{String(ratio)+"%"}</DrinkStyleP>
+          </BarChartMain>
         </BarChart>
     </div>
   )
