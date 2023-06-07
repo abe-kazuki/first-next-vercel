@@ -18,6 +18,7 @@ color: #fff;
 font-weight: bold;
 padding: 20px;
 border: 1px solid #fff;
+text-align: center
 `
 
 const HeadImageComp = styled(NextImage)`
