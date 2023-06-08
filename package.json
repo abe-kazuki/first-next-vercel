@@ -26,10 +26,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "reactstrap": "^9.1.10",
-    "styled-components": "^6.0.0-rc.2",
+    "styled-components": "^5.3.11",
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.26",
     "autoprefixer": "^10.4.14",
     "chart.js": "^4.3.0",
     "postcss": "^8.4.23",

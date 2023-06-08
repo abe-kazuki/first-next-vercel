@@ -1,10 +1,10 @@
 'use client';
 import {FC} from 'react';
-import { styled, keyframes } from 'styled-components';
+import styled, {keyframes } from 'styled-components';
 import { useState, useCallback, useReducer } from 'react';
 import React, {useEffect, useRef} from 'react';
 import { Nomikata, Nomikatas} from './../lib/getJsonPlaceholder';
-import { pc, sp, tab } from './../media';
+import { pc, sp, tab } from '../../media';
 
 const CellBase = styled.div`
 margin: 10px 10px;
@@ -68,6 +68,10 @@ const fadeIn = keyframes`
 
 const CustomCanvas = styled.canvas<{ duration: number }>`
 animation: ${fadeIn} ${props => props.duration}s;
+${sp`
+width: ${(props) => props.width/2.5};
+height: ${(props) => props.height+50}%;
+`}
 `
 
 
@@ -163,7 +167,7 @@ export const MySurvey: FC<RadioProps> = (prop) => {
 export const MyBar: FC<Props> = (prop) => {
   const canvasRef = useRef(null);
   const ratio = prop.ratio
-  const magnification: number = 5
+  const magnification: number = 4
 
   const getContext = (): CanvasRenderingContext2D => {
     const canvas: any = canvasRef.current;

@@ -2,8 +2,7 @@ import {
     css,
     CSSObject,
     FlattenSimpleInterpolation,
-    SimpleInterpolation,
-    ThemedStyledComponentsModule
+    SimpleInterpolation
 } from 'styled-components';
 
 

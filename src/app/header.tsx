@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import NextImage from 'next/image';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 const UlComp = styled.ul`
 color: #fff;
