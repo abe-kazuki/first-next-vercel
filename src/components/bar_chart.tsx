@@ -1,7 +1,7 @@
 'use client';
 import {FC} from 'react';
-import styled, {keyframes } from 'styled-components';
-import { useState, useCallback, useReducer } from 'react';
+import styled, { keyframes } from 'styled-components';
+import { useState } from 'react';
 import React, {useEffect, useRef} from 'react';
 import { Nomikata, Nomikatas} from './../lib/getJsonPlaceholder';
 import { pc, sp, tab } from '../../media';
@@ -66,11 +66,15 @@ const fadeIn = keyframes`
   }
 `;
 
-const CustomCanvas = styled.canvas<{ duration: number }>`
+const CustomCanvas = styled.canvas<{ duration: number}>`
 animation: ${fadeIn} ${props => props.duration}s;
 ${sp`
-width: ${(props) => props.width/2.5};
-height: ${(props) => props.height+50}%;
+width: 90%;
+height: 100%;
+`}
+${tab`
+width: 140%;
+height: 100%;
 `}
 `
 
@@ -184,7 +188,7 @@ export const MyBar: FC<Props> = (prop) => {
 
   return (
     <div>
-      <CustomCanvas ref={canvasRef} width={ratio*magnification} height={20} duration={2}/>
+      <CustomCanvas ref={canvasRef} width={(ratio*magnification)} height={20} duration={2}/>
     </div>
   )    
 }
