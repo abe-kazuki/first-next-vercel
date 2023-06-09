@@ -4,6 +4,7 @@ import { SuccessResult } from './../service/api';
 
 const page = async () => {
   const reqPostsResult: Alcohols = ((await reqAlcohols.get(1)) as SuccessResult<Alcohols>).response.data
+
   return (
     <main className="main">
       <div className="grid">
