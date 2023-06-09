@@ -4,6 +4,10 @@ import { SuccessResult } from './../service/api';
 
 const page = async () => {
   const reqPostsResult: Alcohols = ((await reqAlcohols.get(1)) as SuccessResult<Alcohols>).response.data
+  //const Result = await fetch(`https://project-sake.an.r.appspot.com:443/categories/1/alcohols`);
+  //const reqPostsResult: Alcohols = (await (Result.json() as  Promise<Alcohols>));
+
+
   return (
     <main className="main">
       <div className="grid">

@@ -1,5 +1,4 @@
 
-import { patchFetch } from 'next/dist/server/lib/patch-fetch';
 import { cliant,requestResults } from './../service/api';
 
   
@@ -25,9 +24,12 @@ export type PatchRes = {
 
 export const reqAlcohols = {
   get: (category_id: number) => {
+    const time = new Date()
+    console.log(`＝＝＝ココおget＝＝＝categories/${category_id}/alcohols?cacheclearparam=${time.getMinutes()}`);
+    
     return requestResults<Alcohols>(
       cliant.get<Alcohols>(
-        `categories/${category_id}/alcohols`, {}
+        `categories/${category_id}/alcohols?cacheclearparam=${time}`, {}
       )
     )
   },
