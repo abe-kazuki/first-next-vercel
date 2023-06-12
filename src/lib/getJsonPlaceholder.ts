@@ -24,10 +24,12 @@ export type PatchRes = {
 
 export const reqAlcohols = {
   get: (category_id: number) => {
-    console.log("＝＝＝ココおget＝＝＝");
+    const time = new Date()
+    console.log(`＝＝＝ココおget＝＝＝categories/${category_id}/alcohols?cacheclearparam=${time.getMinutes()}`);
+    
     return requestResults<Alcohols>(
       cliant.get<Alcohols>(
-        `categories/${category_id}/alcohols`, {}
+        `categories/${category_id}/alcohols?cacheclearparam=${time}`, {}
       )
     )
   },
