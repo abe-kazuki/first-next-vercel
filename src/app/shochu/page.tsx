@@ -1,14 +1,15 @@
-import { reqAlcohols, Alcohols } from './../../lib/getJsonPlaceholder';
+import { fetch_alcohols, Alcohols } from './../../lib/getJsonPlaceholder';
 import { SampleCard, FadeIn } from './../../components/sample_cell';
 import { SuccessResult } from './../../service/api';
 
 const page = async () => {
-  const reqPostsResult: Alcohols = ((await reqAlcohols.get(4)) as SuccessResult<Alcohols>).response.data
+  //const reqPostsResult: Alcohols = ((await reqAlcohols.get(4)) as SuccessResult<Alcohols>).response.data
+  const result: Alcohols = (await fetch_alcohols(4))
   
   return (
     <main className="main">
       <div className="grid">
-        {reqPostsResult?.map(({ meigaraId, osakeName, imagePath, nomikata }, index) => 
+        {result?.map(({ meigaraId, osakeName, imagePath, nomikata }, index) => 
         (
           <div key={meigaraId}>
             <FadeIn duration={index*2.5}>

@@ -1,17 +1,16 @@
-import { reqAlcohols, Alcohols } from './../lib/getJsonPlaceholder';
+import { fetch_alcohols, Alcohols } from './../lib/getJsonPlaceholder';
 import { SampleCard, FadeIn } from './../components/sample_cell';
 import { SuccessResult } from './../service/api';
+import { Dialog } from '@mui/material';
 
 const page = async () => {
-  const reqPostsResult: Alcohols = ((await reqAlcohols.get(1)) as SuccessResult<Alcohols>).response.data
-  //const Result = await fetch(`https://project-sake.an.r.appspot.com:443/categories/1/alcohols`);
-  //const reqPostsResult: Alcohols = (await (Result.json() as  Promise<Alcohols>));
-
+  //const reqPostsResult: Alcohols = ((await reqAlcohols.get(1)) as SuccessResult<Alcohols>).response.data
+  const result: Alcohols = (await fetch_alcohols(1))
 
   return (
     <main className="main">
       <div className="grid">
-        {reqPostsResult?.map(({ meigaraId, osakeName, imagePath, nomikata }, index) => 
+        {result?.map(({ meigaraId, osakeName, imagePath, nomikata }, index) => 
         (
           <div key={meigaraId}>
             <FadeIn duration={index*2.5}>

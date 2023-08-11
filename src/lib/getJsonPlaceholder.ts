@@ -49,3 +49,11 @@ export const reqAlcohols = {
     )
   }
 }
+
+export const fetch_alcohols = async (category_id: number) => {
+  const result = await fetch(`https://project-sake.an.r.appspot.com:443/categories/${category_id}/alcohols`, {
+    cache: "no-store",
+  });
+  const json: Alcohols  = await result.json();
+  return json
+}
