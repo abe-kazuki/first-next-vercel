@@ -15,12 +15,10 @@ export const Grid: FC<Props> =  (prop: Props) => {
     const [alcohols, setResult] = useState<Alcohols>([])
     useEffect(() => {
         const reqPostsResult = reqAlcohols.get(prop.category_id)
-        console.log("reqPostsResult叩くよ")
         reqPostsResult?.then(
             (res: SuccessResult<Alcohols> | FailResult<Alcohols>) => {
                 const result: Alcohols = (res as SuccessResult<Alcohols> ).response.data
                 setResult(result)
-                console.log("resultしているよ")
             })    
       }, []);
 

@@ -117,7 +117,7 @@ export const SubItem: FC<Props> = (prop) => {
             <ActionButton>0 Views</ActionButton>
             <MyBarChartComp list={prop.nomikatas} handle={async (nomikatas_id: number)  => {
               await reqAlcohols.patch(prop.meigaraId, nomikatas_id).
-              then((res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {alert(res.status)})
+              then((res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {alert(`${prop.nomikatas[nomikatas_id - 1].name}に1票投票しました！`)})
             }}/>
       </div>
     );

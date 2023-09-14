@@ -111,7 +111,10 @@ export const MyBarChartComp: FC<({list: Nomikatas, handle:(nomikatas_id: number)
         prop.list?.map((nomikata: Nomikata, index: number) => (
           <BarCharts key={nomikata.nomikata_id} nomikata={nomikata} total_eval={total_evaluation} disable={disable} 
           handle={(nomikatas_id) =>
-             {handleEval(nomikatas_id);}}
+             {
+              prop.handle(nomikatas_id)
+              handleEval(nomikatas_id) 
+            }}
           />
         ))
         }
