@@ -4,7 +4,7 @@ const headers = {
     "Content-Type": "application/json;charset=UTF-8",
   };
 export const cliant = axios.create({
-    baseURL: "https://project-sake.an.r.appspot.com:443/",
+    baseURL: "https://osakeman.com/V2",
     headers: headers
 })
 
