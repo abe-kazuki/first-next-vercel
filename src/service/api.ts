@@ -5,6 +5,11 @@ const headers = {
   };
 export const cliant = axios.create({
     baseURL: "https://osakeman.com/V2",
+    //headers: headers,
+})
+
+export const mock_cliant = axios.create({
+    baseURL: "http://localhost:3000/",
     headers: headers
 })
 

@@ -1,5 +1,5 @@
 
-import { cliant,requestResults } from './../service/api';
+import { cliant,mock_cliant,requestResults } from './../service/api';
 
   
 export type Alcohol = {
@@ -29,14 +29,15 @@ export const reqAlcohols = {
     
     return requestResults<Alcohols>(
       cliant.get<Alcohols>(
-        `categories/${category_id}/alcohols?cacheclearparam=${time}`, {}
+        `categories/${category_id}/alcohols`, {}
       )
     )
   },
   mock_get: (category_id: number) => {
+    console.log("リクエストしているよ！！")
     return requestResults<Alcohols>(
-      cliant.get<Alcohols>(
-        `teratest`, {}
+      mock_cliant.get<Alcohols>(
+        `/mock/category.json`, {}
       )
     )
   },

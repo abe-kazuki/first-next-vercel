@@ -109,7 +109,10 @@ export const MyBarChartComp: FC<({list: Nomikatas, handle:(nomikatas_id: number)
       <CellBase>
         {
         prop.list?.map((nomikata: Nomikata, index: number) => (
-          <BarCharts key={nomikata.nomikata_id} nomikata={nomikata} total_eval={total_evaluation} disable={disable} handle={(nomikatas_id) => {prop.handle(nomikatas_id); handleEval(nomikatas_id);}}/>
+          <BarCharts key={nomikata.nomikata_id} nomikata={nomikata} total_eval={total_evaluation} disable={disable} 
+          handle={(nomikatas_id) =>
+             {handleEval(nomikatas_id);}}
+          />
         ))
         }
       </CellBase>
@@ -171,7 +174,7 @@ export const MySurvey: FC<RadioProps> = (prop) => {
 export const MyBar: FC<Props> = (prop) => {
   const canvasRef = useRef(null);
   const ratio = prop.ratio
-  const magnification: number = 4
+  const magnification: number = 6
 
   const getContext = (): CanvasRenderingContext2D => {
     const canvas: any = canvasRef.current;
