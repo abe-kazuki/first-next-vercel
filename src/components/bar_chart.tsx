@@ -137,7 +137,7 @@ export const BarCharts: FC<({nomikata: Nomikata, total_eval: number, disable: bo
     setEval(evaluation + 1)
     prop.handle(prop.nomikata.nomikata_id)
   };
-  const ratio = Math.round((evaluation/prop.total_eval)*100)
+  const ratio = prop.total_eval === 0 ? 0 : Math.round((evaluation/prop.total_eval)*100)
 
   return (
     <div>

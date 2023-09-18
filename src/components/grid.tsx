@@ -17,7 +17,7 @@ export const Grid: FC<Props> =  (prop: Props) => {
             (res: SuccessResult<Alcohols> | FailResult<Alcohols>) => {
                 const result: Alcohols = (res as SuccessResult<Alcohols> ).response.data
                 setResult(result)
-            })    
+            })
       }, []);
 
 
@@ -28,7 +28,7 @@ export const Grid: FC<Props> =  (prop: Props) => {
                 alcohols?.map(({ meigaraId, osakeName, imagePath, nomikata }, index) => 
                     (
                     <div key={meigaraId}>
-                        <FadeIn duration={index*2.5}>
+                        <FadeIn duration={index*1.2}>
                         <SampleCard title={osakeName} imagePath={imagePath} nomikatas={nomikata} meigaraId={meigaraId}/>
                         </FadeIn>
                     </div>
