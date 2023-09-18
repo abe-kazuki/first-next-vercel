@@ -4,8 +4,8 @@ const headers = {
     "Content-Type": "application/json;charset=UTF-8",
   };
 export const cliant = axios.create({
-    baseURL: "https://osakeman.com/V2",
-    //headers: headers,
+    baseURL: "https://osakeman.com/V1",
+    headers: headers,
 })
 
 export const mock_cliant = axios.create({
