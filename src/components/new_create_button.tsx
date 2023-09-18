@@ -29,10 +29,13 @@ const Overlay = styled.div`
     align-items: center;
 `;
 
-export const NewCreateButton: FC = () => {
+type Props = {
+  category_id: number;
+};
+
+export const NewCreateButton: FC<Props> = (props) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [selectedNomikatas, setSelectedNomikatas] = useState([]);
   
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
@@ -52,7 +55,7 @@ export const NewCreateButton: FC = () => {
     const selectedValueIds = selectedValues.map(value => parseInt(value, 10))
     console.log(`選択した飲み方：${selectedValueIds}`)
     
-    reqMeigaras.post(1, inputValue, selectedValueIds).then((res: SuccessResult<PostRes> | FailResult<PostRes>) => {
+    reqMeigaras.post(props.category_id, inputValue, selectedValueIds).then((res: SuccessResult<PostRes> | FailResult<PostRes>) => {
       const result: PostRes = (res as SuccessResult<PostRes> ).response.data
       if (result.status == 400) {
         alert(`${inputValue}の追加に失敗しました。${result.message}`);

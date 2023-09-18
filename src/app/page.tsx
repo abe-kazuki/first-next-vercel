@@ -4,9 +4,8 @@ import { NewCreateButton } from './../components/new_create_button';
 const page = async() => {
   return (
     <main id="root" className="main">
-      <NewCreateButton/>
+      <NewCreateButton category_id={1}/>
       <Grid category_id={1}/>
-      {/* <Grid category_id={1}/>*/}
     </main>
   );
 };
