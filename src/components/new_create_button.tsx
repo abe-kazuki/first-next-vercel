@@ -32,6 +32,7 @@ const Overlay = styled.div`
 export const NewCreateButton: FC = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [selectedNomikatas, setSelectedNomikatas] = useState([]);
   
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
@@ -39,19 +40,29 @@ export const NewCreateButton: FC = () => {
   };
 
   const handleChange = (e: any) => {
+    console.log(e.target.key)
     setInputValue(e.target.value);
+
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // 入力値を使用して何らかの処理を行う
-    alert(`入力された値: ${inputValue}`);
-    reqMeigaras.post(1, inputValue, [1,2]).then((res: SuccessResult<PostRes> | FailResult<PostRes>) => {
+    const formData = new FormData(e.target);
+    const selectedValues: string[] = Array.from(formData.getAll('nomikata')) as string[];
+    const selectedValueIds = selectedValues.map(value => parseInt(value, 10))
+    console.log(`選択した飲み方：${selectedValueIds}`)
+    
+    reqMeigaras.post(1, inputValue, selectedValueIds).then((res: SuccessResult<PostRes> | FailResult<PostRes>) => {
       const result: PostRes = (res as SuccessResult<PostRes> ).response.data
-      alert(` ${result.status} + ${inputValue}を追加しました`);
+      if (result.status == 400) {
+        alert(`${inputValue}の追加に失敗しました。${result.message}`);
+        return
+      }
+      alert(` ${result.status} ${inputValue}を追加しました`);
     }).catch((res: FailResult<PostRes>) =>{
-      alert(` ${inputValue}の追加に失敗しました`);
+      alert(` ${inputValue}の追加に失敗しました。`);
     })
+    
     setInputValue('')
     toggleModal();
   };

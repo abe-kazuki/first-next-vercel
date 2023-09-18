@@ -1,6 +1,7 @@
 'use client';
 import styled from 'styled-components';
 import {FC, useState} from 'react';
+import { nomikatas } from './../components/enums/nomikatas';
 
 const ModalContent = styled.div`
 background-color: #fff;
@@ -23,6 +24,18 @@ const CloseButton = styled.button`
   }
 `
 
+const CustomInput = styled.input`
+  width: 300px;
+  margin: 10px 10px;
+`
+
+const CheckboxGrid = styled.div`
+  margin: 10px 10px;
+  display: grid;
+  grid-template-columns: repeat(1fr, 3);
+  grid-gap: 10px; /* グリッド間の間隔 */
+`
+
 type Props = {
   input_value: string;  // toggleModal を受け取る
   handleSubmit: (e: any) => void;  // 子コンポーネントを受け取る
@@ -35,14 +48,27 @@ export const InputPanel: FC<Props> = props => {
     return (
       <ModalContent>
         <CustomForm onSubmit={props.handleSubmit}>
-          <input
-            type="text"
-            value={props.input_value}
-            onChange={props.handleChange}
-            placeholder="銘柄名を入力してください"
-          />
+          <h3>銘柄名</h3>
+            <CustomInput
+              type="text"
+              value={props.input_value}
+              onChange={props.handleChange}
+              placeholder="銘柄名を入力してください"
+            />
+          <h3>合う飲み方を選択してください</h3>
+          <CheckboxGrid>
+            {
+              nomikatas.map((nomikata, index) => (
+                <label key ={index} >
+                  <input type="checkbox"  name="nomikata" value={index+1} /> 
+                  {` ${index+1}：${nomikata}`}
+                </label>
+              ))
+            }
+          </CheckboxGrid>
+
           <CloseButton type="submit">送信</CloseButton>
-          <CloseButton type="reset" onClick={props.handleCancel}>Close</CloseButton>
+          <CloseButton type="reset" onClick={props.handleCancel}>閉じる</CloseButton>
         </CustomForm>
       </ModalContent>
     );
