@@ -5,6 +5,7 @@ const page = async() => {
   return (
     <main id="root" className="main">
       <NewCreateButton/>
+      <Grid category_id={1}/>
       {/* <Grid category_id={1}/>*/}
     </main>
   );

@@ -3,8 +3,13 @@ import axios, {AxiosResponse, AxiosError } from "axios";
 const headers = {
     "Content-Type": "application/json;charset=UTF-8",
   };
-export const cliant = axios.create({
+export const cliant_v1 = axios.create({
     baseURL: "https://osakeman.com/V1",
+    //headers: headers,
+})
+
+export const cliant_v2 = axios.create({
+    baseURL: "https://osakeman.com/V2",
     headers: headers,
 })
 

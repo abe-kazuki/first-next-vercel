@@ -1,4 +1,4 @@
-import { cliant, requestResults } from './../service/api';
+import { cliant_v1, requestResults } from './../service/api';
 
 export type PostRes = {
     status: number;
@@ -12,7 +12,7 @@ export type Error = {
 export const reqMeigaras = {
     post(category_id: number, meigara_name: string, nomikatas: number[]) {
         return requestResults<PostRes>(
-            cliant.post(
+            cliant_v1.post(
               `categories/${category_id}/meigaras`, {meigara_name: meigara_name,nomikatas: nomikatas}
             )
           )

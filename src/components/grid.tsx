@@ -10,8 +10,6 @@ export type Props = {
 
 
 export const Grid: FC<Props> =  (prop: Props) => {
-    //const reqPostsResult = reqAlcohols.get(prop.category_id)
-    //csrになるので反映されない
     const [alcohols, setResult] = useState<Alcohols>([])
     useEffect(() => {
         const reqPostsResult = reqAlcohols.get(prop.category_id)

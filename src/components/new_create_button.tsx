@@ -24,6 +24,9 @@ const Overlay = styled.div`
     left: 0;
     bottom: 0;
     right: 0;
+    display: flex; /* 中央揃えを可能にする */
+    justify-content: center;
+    align-items: center;
 `;
 
 export const NewCreateButton: FC = () => {
@@ -61,7 +64,11 @@ export const NewCreateButton: FC = () => {
       {isOpenModal && (
         <Modal close={toggleModal}>
           <Overlay>
-            <InputPanel input_value={inputValue} handleChange={handleChange} handleSubmit={handleSubmit}/>
+            <InputPanel input_value={inputValue} 
+            handleChange={handleChange} 
+            handleSubmit={handleSubmit}
+            handleCancel={toggleModal}
+            />
           </Overlay>
         </Modal>
       )

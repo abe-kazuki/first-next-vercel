@@ -1,5 +1,5 @@
 
-import { cliant,mock_cliant,requestResults } from './../service/api';
+import { cliant_v2, mock_cliant,requestResults } from './../service/api';
 
   
 export type Alcohol = {
@@ -28,7 +28,7 @@ export const reqAlcohols = {
     console.log(`＝＝＝ココおget＝＝＝categories/${category_id}/alcohols?cacheclearparam=${time.getMinutes()}`);
     
     return requestResults<Alcohols>(
-      cliant.get<Alcohols>(
+      cliant_v2.get<Alcohols>(
         `categories/${category_id}/alcohols`, {}
       )
     )
@@ -44,7 +44,7 @@ export const reqAlcohols = {
   patch: (meigaraId: number, nomikatas_id: number) => {
     
     return requestResults<PatchRes>(
-      cliant.patch<PatchRes>(
+      cliant_v2.patch<PatchRes>(
         `meigaras/${meigaraId}/nomikatas/${nomikatas_id}`, {}
       )
     )
