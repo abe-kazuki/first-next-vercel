@@ -4,7 +4,7 @@ import {FC, useState} from 'react';
 import { Modal } from './../components/modal';
 import { InputPanel } from './../components/input_panel';
 
-import {reqMeigaras, PostRes} from './../lib/meigarasJson';
+import {reqMeigaras, PostRes} from '../lib/meigarasJsonPlaceholder';
 import {SuccessResult, FailResult} from './../../src/service/api';
 
 const CreateButton = styled.button`

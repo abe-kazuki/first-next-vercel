@@ -1,5 +1,5 @@
 
-import { cliant_v2, mock_cliant,requestResults } from './../service/api';
+import { cliant_v2, mock_cliant,requestResults } from '../service/api';
 
   
 export type Alcohol = {

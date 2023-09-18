@@ -1,4 +1,4 @@
-import { cliant_v1, requestResults } from './../service/api';
+import { cliant_v1, requestResults } from '../service/api';
 
 export type PostRes = {
     status: number;

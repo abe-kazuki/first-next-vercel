@@ -3,7 +3,7 @@ import {FC} from 'react';
 import NextImage from 'next/image';
 import styled, {keyframes} from 'styled-components';
 import { MyBarChartComp } from './../components/bar_chart';
-import { Nomikatas, reqAlcohols, PatchRes} from './../lib/getJsonPlaceholder';
+import { Nomikatas, reqAlcohols, PatchRes} from '../lib/AlcoholaJsonPlaceholder';
 import {SuccessResult, FailResult} from './../../src/service/api';
 import { pc, sp, tab } from '../../media';
 

@@ -55,19 +55,25 @@ export const InputPanel: FC<Props> = props => {
               onChange={props.handleChange}
               placeholder="銘柄名を入力してください"
             />
+          <h3>画像を選択してください</h3>
+            <CustomInput
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              onChange={function(){console.log("onChange={handleFileChange}")}}
+            />
           <h3>合う飲み方を選択してください</h3>
-          <CheckboxGrid>
-            {
-              nomikatas.map((nomikata, index) => (
-                <label key ={index} >
-                  <input type="checkbox"  name="nomikata" value={index+1} /> 
-                  {` ${index+1}：${nomikata}`}
-                </label>
-              ))
-            }
-          </CheckboxGrid>
-
-          <CloseButton type="submit">送信</CloseButton>
+            <CheckboxGrid>
+              {
+                nomikatas.map((nomikata, index) => (
+                  <label key ={index} >
+                    <input type="checkbox"  name="nomikata" value={index+1} /> 
+                    {` ${index+1}：${nomikata}`}
+                  </label>
+                ))
+              }
+            </CheckboxGrid>
+            <CloseButton type="submit">送信</CloseButton>
           <CloseButton type="reset" onClick={props.handleCancel}>閉じる</CloseButton>
         </CustomForm>
       </ModalContent>

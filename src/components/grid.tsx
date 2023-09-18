@@ -1,5 +1,5 @@
 'use client';
-import { reqAlcohols, Alcohols} from './../lib/getJsonPlaceholder';
+import { reqAlcohols, Alcohols} from '../lib/AlcoholaJsonPlaceholder';
 import { SampleCard, FadeIn } from './../components/sample_cell';
 import { SuccessResult, FailResult } from './../service/api';
 import {FC, useState, useEffect} from 'react';
