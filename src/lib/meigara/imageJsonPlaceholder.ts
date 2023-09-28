@@ -16,14 +16,11 @@ export const reqMeigarasImage = {
         const requestConfig = {
             headers: {
                'Content-Type': 'multipart/form-data',
-            },
-            data: {
-                formData: formData
             }
          };
         return requestResults<ImagePostRes>(
             cliant_v1.post(
-              `meigaras/${meigara_id}/images`, null, requestConfig
+              `meigaras/${meigara_id}/images`, formData, requestConfig
             )
           )
     }

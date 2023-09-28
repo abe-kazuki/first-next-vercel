@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {FC, useState} from 'react';
 import { Modal } from './../components/modal';
 import { InputPanel } from './../components/input_panel';
+import { LoadingComp } from './../components/loading';
 
 import {reqMeigaras, PostRes} from '../lib/meigarasJsonPlaceholder';
 import {reqMeigarasImage, ImagePostRes} from '../lib/meigara/imageJsonPlaceholder';
@@ -38,8 +39,9 @@ type Props = {
 export const NewCreateButton: FC<Props> = (props) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [file, setFile] = useState(null);
-  const [thumbnail, setThumbnail] = useState<string | null>(null);
+  const [file, setFile] = useState<string>("");
+  const [thumbnail, setThumbnail] = useState<string>("");
+  const [loading, setLoading] = useState(false);
   
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
@@ -57,6 +59,11 @@ export const NewCreateButton: FC<Props> = (props) => {
     const formData = new FormData(e.target);
     const selectedValues: string[] = Array.from(formData.getAll('nomikata')) as string[];
     const selectedValueIds = selectedValues.map(value => parseInt(value, 10))
+    if (inputValue == "" || selectedValueIds.length == 0 || file == "") {
+      alert(` 入力項目が不足しています`);
+      return
+    }
+    setLoading(true);
     console.log(`選択した飲み方：${selectedValueIds}`)
     
     reqMeigaras.post(props.category_id, inputValue, selectedValueIds).then((res: SuccessResult<PostRes> | FailResult<PostRes>) => {
@@ -66,8 +73,11 @@ export const NewCreateButton: FC<Props> = (props) => {
         return
       }
       alert(` ${result.status} ${inputValue}を追加しました`);
+      updateImage(result.meigara_id)
     }).catch((res: FailResult<PostRes>) =>{
       alert(` ${inputValue}の追加に失敗しました。`);
+    }).finally(() => {
+      setLoading(false); 
     })
     
     setInputValue('')
@@ -77,10 +87,29 @@ export const NewCreateButton: FC<Props> = (props) => {
   const handleImageSelect = (e: any) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-    const formData = new FormData();
-    formData.append('file', selectedFile);
 
-    reqMeigarasImage.post(12, formData)
+    // サムネイルを生成
+    console.log("サムネイルを生成")
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result != null && typeof event.target.result === 'string') {
+          setThumbnail(event.target!.result);
+        } else {
+          setThumbnail("");
+        }
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      setThumbnail("");
+    }
+  }
+
+  const updateImage = (nomikata_id: number) => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    reqMeigarasImage.post(nomikata_id, formData)
     .then((res: SuccessResult<ImagePostRes> | FailResult<ImagePostRes>) => {
       const result: ImagePostRes = (res as SuccessResult<ImagePostRes> ).response.data
       if (result.status == 400) {
@@ -91,20 +120,6 @@ export const NewCreateButton: FC<Props> = (props) => {
     }).catch((res: FailResult<PostRes>) =>{
       alert(`画像の追加に失敗しました。`);
     })
-
-    // サムネイルを生成
-    console.log("サムネイルを生成")
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result != null) {
-          setThumbnail(event.target?.result);
-        }
-      };
-      reader.readAsDataURL(selectedFile);
-    } else {
-      setThumbnail(null);
-    }
   }
 
   return (
@@ -112,6 +127,7 @@ export const NewCreateButton: FC<Props> = (props) => {
       <CreateButton onClick={toggleModal}>
         新規作成
       </CreateButton>
+      {loading && <LoadingComp />}
       {isOpenModal && (
         <Modal close={toggleModal}>
           <Overlay>

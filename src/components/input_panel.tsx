@@ -3,6 +3,7 @@ import NextImage from 'next/image';
 import styled from 'styled-components';
 import {FC, useState} from 'react';
 import { nomikatas } from './../components/enums/nomikatas';
+import { pc, sp, tab } from '../../media';
 
 const ModalContent = styled.div`
 background-color: #fff;
@@ -10,6 +11,10 @@ padding: 20px;
 border-radius: 4px;
 width: 50%;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+${pc`
+width: 80%;
+`}
+overflow-x: auto; /* 縦方向のスクロールバーを表示 */
 `;
 
 const CustomForm = styled.form`
@@ -26,14 +31,24 @@ const CloseButton = styled.button`
 `
 
 const CustomInput = styled.input`
-  width: 300px;
   margin: 10px 10px;
+  ${tab`
+    width: 300px;
+  `}
+  ${pc`
+    width: 300px;
+  `}
 `
 
 const ImageConm = styled.div`
   width: 300px;
   margin: 10px 10px;
+  ${tab`
   display: flex;
+  `}
+  ${pc`
+  display: flex; 
+  `}
 `
 
 const CheckboxGrid = styled.div`
@@ -49,7 +64,7 @@ type Props = {
   handleChange: (e: any) => void;
   handleCancel: (e: any) => void;
   handleImageSelect: (e: any) => void;
-  file: File | null;  // toggleModal を受け取る
+  file: string | null;  // toggleModal を受け取る
   thumbnail: string | null;  // 子コンポーネントを受け取る
 };
 
