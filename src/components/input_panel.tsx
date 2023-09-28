@@ -9,12 +9,20 @@ const ModalContent = styled.div`
 background-color: #fff;
 padding: 20px;
 border-radius: 4px;
-width: 50%;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 ${pc`
 width: 80%;
 `}
-overflow-x: auto; /* 縦方向のスクロールバーを表示 */
+${tab`
+max-height: 600px; /* 適切な高さに調整してください */
+width: 70%;
+`}
+${sp`
+max-height: 600px; /* 適切な高さに調整してください */
+width: 60%;
+`}
+/* スクロール可能にするためのスタイル */
+overflow-y: auto; /* 縦方向のスクロールバーを表示 */
 `;
 
 const CustomForm = styled.form`
@@ -64,7 +72,15 @@ const ImageConm = styled.div`
 const CheckboxGrid = styled.div`
   margin: 10px 10px;
   display: grid;
-  grid-template-columns: repeat(1fr, 3);
+  ${tab`
+    grid-template-columns: repeat(1fr, 3);
+  `}
+  ${pc`
+    grid-template-columns: repeat(3, 1fr);
+  `}
+  ${sp`
+    grid-template-columns: repeat(1fr, 3);
+  `}
   grid-gap: 10px; /* グリッド間の間隔 */
 `
 
