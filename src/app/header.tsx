@@ -11,12 +11,19 @@ display: flex;
 `
 
 const LiComp = styled.li`
-width: 1500px;
+flex: 1;
+display: flex;
+justify-content: center;
+`
+
+const CustomLink = styled(Link)`
+width: 100%;
+hight: 100%;
 background-color: #333;
 text-decoration: none;
 color: #fff;
 font-weight: bold;
-padding: 20px;
+padding: 20px 0px;
 border: 1px solid #fff;
 text-align: center
 `
@@ -32,16 +39,16 @@ const header = () => {
         <HeadImageComp src="/messageImage_1685262535471.jpg"  className="w-32" alt='' width="1000" height="500"/>
         <UlComp className="flex items-center space-x-2">
           <LiComp>
-            <Link href="/" >ウイスキー</Link>
+            <CustomLink href="/" >ウイスキー</CustomLink>
           </LiComp>
           <LiComp>
-            <Link href="/jin">ジン</Link>
+            <CustomLink href="/jin">ジン</CustomLink>
           </LiComp>
           <LiComp>
-            <Link href="/wine">ワイン</Link>
+            <CustomLink href="/wine">ワイン</CustomLink>
           </LiComp>
           <LiComp>
-            <Link href="/shochu">焼酎</Link>
+            <CustomLink href="/shochu">焼酎</CustomLink>
           </LiComp>
         </UlComp>
       </nav>
