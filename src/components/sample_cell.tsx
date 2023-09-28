@@ -27,10 +27,11 @@ display: flex;
 `
 
 const Title = styled.h2`
-  color: #fff;
   font-weight: 300;
+  color: #333;
   inline-size: 200px;
   overflow-wrap: break-word;
+  text-align: center
 `
 const Date = styled.div`
   font-weight: 300;
