@@ -3,7 +3,7 @@ import {FC} from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useState } from 'react';
 import React, {useEffect, useRef} from 'react';
-import { Nomikata, Nomikatas} from '../lib/AlcoholaJsonPlaceholder';
+import { Nomikata, Nomikatas} from '../lib/alcoholaJsonPlaceholder';
 import { pc, sp, tab } from '../../media';
 
 const CellBase = styled.div`
