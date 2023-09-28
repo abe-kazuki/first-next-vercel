@@ -20,7 +20,6 @@ color: #fff;
 `
 
 type Props = {
-    loading: boolean;
   };
 
 export const LoadingComp: FC<Props> = (props) => {
