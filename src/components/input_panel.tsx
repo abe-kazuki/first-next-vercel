@@ -1,4 +1,5 @@
 'use client';
+import NextImage from 'next/image';
 import styled from 'styled-components';
 import {FC, useState} from 'react';
 import { nomikatas } from './../components/enums/nomikatas';
@@ -29,6 +30,12 @@ const CustomInput = styled.input`
   margin: 10px 10px;
 `
 
+const ImageConm = styled.div`
+  width: 300px;
+  margin: 10px 10px;
+  display: flex;
+`
+
 const CheckboxGrid = styled.div`
   margin: 10px 10px;
   display: grid;
@@ -41,6 +48,9 @@ type Props = {
   handleSubmit: (e: any) => void;  // 子コンポーネントを受け取る
   handleChange: (e: any) => void;
   handleCancel: (e: any) => void;
+  handleImageSelect: (e: any) => void;
+  file: File | null;  // toggleModal を受け取る
+  thumbnail: string | null;  // 子コンポーネントを受け取る
 };
 
 export const InputPanel: FC<Props> = props => {
@@ -56,12 +66,15 @@ export const InputPanel: FC<Props> = props => {
               placeholder="銘柄名を入力してください"
             />
           <h3>画像を選択してください</h3>
+          <ImageConm>
+            {props.thumbnail && <NextImage src={props.thumbnail} alt="サムネイル" width="150" height="150"/>}
             <CustomInput
               type="file"
               id="fileInput"
               accept="image/*"
-              onChange={function(){console.log("onChange={handleFileChange}")}}
+              onChange={props.handleImageSelect}
             />
+          </ImageConm>
           <h3>合う飲み方を選択してください</h3>
             <CheckboxGrid>
               {

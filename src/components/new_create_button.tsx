@@ -5,7 +5,9 @@ import { Modal } from './../components/modal';
 import { InputPanel } from './../components/input_panel';
 
 import {reqMeigaras, PostRes} from '../lib/meigarasJsonPlaceholder';
+import {reqMeigarasImage, ImagePostRes} from '../lib/meigara/imageJsonPlaceholder';
 import {SuccessResult, FailResult} from './../../src/service/api';
+
 
 const CreateButton = styled.button`
   margin: 10px 10px;
@@ -36,6 +38,8 @@ type Props = {
 export const NewCreateButton: FC<Props> = (props) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [file, setFile] = useState(null);
+  const [thumbnail, setThumbnail] = useState<string | null>(null);
   
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
@@ -70,6 +74,39 @@ export const NewCreateButton: FC<Props> = (props) => {
     toggleModal();
   };
 
+  const handleImageSelect = (e: any) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    reqMeigarasImage.post(12, formData)
+    .then((res: SuccessResult<ImagePostRes> | FailResult<ImagePostRes>) => {
+      const result: ImagePostRes = (res as SuccessResult<ImagePostRes> ).response.data
+      if (result.status == 400) {
+        alert(`画像の追加に失敗しました。${result.message}`);
+        return
+      }
+      alert(`画像を追加しました`);
+    }).catch((res: FailResult<PostRes>) =>{
+      alert(`画像の追加に失敗しました。`);
+    })
+
+    // サムネイルを生成
+    console.log("サムネイルを生成")
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result != null) {
+          setThumbnail(event.target?.result);
+        }
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      setThumbnail(null);
+    }
+  }
+
   return (
     <div>
       <CreateButton onClick={toggleModal}>
@@ -82,6 +119,9 @@ export const NewCreateButton: FC<Props> = (props) => {
             handleChange={handleChange} 
             handleSubmit={handleSubmit}
             handleCancel={toggleModal}
+            handleImageSelect={handleImageSelect}
+            file={file}
+            thumbnail={thumbnail}
             />
           </Overlay>
         </Modal>

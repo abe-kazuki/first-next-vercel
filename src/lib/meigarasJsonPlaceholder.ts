@@ -2,6 +2,7 @@ import { cliant_v1, requestResults } from '../service/api';
 
 export type PostRes = {
     status: number;
+    meigara_id: number
     message: string;
     };
 
