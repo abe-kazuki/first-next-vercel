@@ -34,6 +34,7 @@ const Overlay = styled.div`
 
 type Props = {
   category_id: number;
+  category_name: string;
 };
 
 export const NewCreateButton: FC<Props> = (props) => {
@@ -138,6 +139,7 @@ export const NewCreateButton: FC<Props> = (props) => {
             handleImageSelect={handleImageSelect}
             file={file}
             thumbnail={thumbnail}
+            osakeCategory={props.category_name}
             />
           </Overlay>
         </Modal>

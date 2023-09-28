@@ -40,6 +40,16 @@ const CustomInput = styled.input`
   `}
 `
 
+const CustomDiv = styled.div`
+  margin: 10px 10px;
+  ${tab`
+    width: 300px;
+  `}
+  ${pc`
+    width: 300px;
+  `}
+`
+
 const ImageConm = styled.div`
   width: 300px;
   margin: 10px 10px;
@@ -64,6 +74,7 @@ type Props = {
   handleChange: (e: any) => void;
   handleCancel: (e: any) => void;
   handleImageSelect: (e: any) => void;
+  osakeCategory: string
   file: string | null;  // toggleModal を受け取る
   thumbnail: string | null;  // 子コンポーネントを受け取る
 };
@@ -73,6 +84,8 @@ export const InputPanel: FC<Props> = props => {
     return (
       <ModalContent>
         <CustomForm onSubmit={props.handleSubmit}>
+          <h3>お酒カテゴリ名</h3>
+            <CustomDiv>{props.osakeCategory}</CustomDiv>
           <h3>銘柄名</h3>
             <CustomInput
               type="text"
