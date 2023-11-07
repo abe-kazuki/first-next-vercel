@@ -27,7 +27,7 @@ display: flex;
 `
 
 const Title = styled.h2`
-  font-weight: 300;
+  font-size: 24px;
   color: #333;
   inline-size: 200px;
   overflow-wrap: break-word;
