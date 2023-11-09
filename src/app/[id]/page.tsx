@@ -1,6 +1,6 @@
 import NextImage from 'next/image';
-import {SubItem} from './../../../components/sample_cell';
-import {Container} from '../../../components/details/contailner';
+import {SubItem} from './../../components/sample_cell';
+import {Container} from '../../components/details/contailner';
 
 const Page = async({
     params,

@@ -24,6 +24,14 @@ export type Error = {
 export const reqMeigaras = {
     get(meigara_id: number) {
         return requestResults<AlcoholDetails>(
+            cliant_v1.get<AlcoholDetails>(
+              `/meigaras/${meigara_id}`, {}
+            )
+          )
+    },
+
+    mock_get(meigara_id: number) {
+        return requestResults<AlcoholDetails>(
             mock_cliant.get<AlcoholDetails>(
               `/mock/details.json`, {}
             )
