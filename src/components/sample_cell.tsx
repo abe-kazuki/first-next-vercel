@@ -27,7 +27,7 @@ display: flex;
 `
 
 const Title = styled.h2`
-  font-weight: 300;
+  font-size: 24px;
   color: #333;
   inline-size: 200px;
   overflow-wrap: break-word;
@@ -84,12 +84,19 @@ export type Props = {
     meigaraId: number
   }
 
+export type SubProps = {
+    main: Props
+    likeCount: number
+    commntCount: number
+    viewCount: number
+  }
+
 export const SampleCard: FC<Props> = (prop) => {
     return (
       <div style={{ background: '#fff'}}>
         <CellBase>
             <MailItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas} meigaraId={prop.meigaraId}/>
-            <SubItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas} meigaraId={prop.meigaraId}/>
+            <SubItem main={prop} likeCount= {1} commntCount = {1 }viewCount= {0}/>
         </CellBase>
       </div>
     );
@@ -110,15 +117,15 @@ export const MailItem: FC<Props> = (prop) => {
     );
 }
 
-export const SubItem: FC<Props> = (prop) => {
+export const SubItem: FC<SubProps> = (prop) => {
     return (
         <div>
-            <ActionButton onClick={function(){alert(prop.nomikatas.length);}}>0 Comments</ActionButton>
-            <ActionButton>0 Likes</ActionButton>
-            <ActionButton>0 Views</ActionButton>
-            <MyBarChartComp list={prop.nomikatas} handle={async (nomikatas_id: number)  => {
-              await reqAlcohols.patch(prop.meigaraId, nomikatas_id).
-              then((res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {alert(`${prop.nomikatas[nomikatas_id - 1].name}に1票投票しました！`)})
+            <ActionButton onClick={function(){alert(prop.main.nomikatas.length);}}>{prop.commntCount} Comments</ActionButton>
+            <ActionButton>{prop.likeCount} Likes</ActionButton>
+            <ActionButton>{prop.viewCount} Views</ActionButton>
+            <MyBarChartComp list={prop.main.nomikatas} handle={async (nomikatas_id: number)  => {
+              await reqAlcohols.patch(prop.main.meigaraId, nomikatas_id).
+              then((res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {alert(`${prop.main.nomikatas[nomikatas_id - 1].name}に1票投票しました！`)})
             }}/>
       </div>
     );
