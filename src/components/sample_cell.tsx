@@ -103,15 +103,20 @@ export const SampleCard: FC<Props> = (prop) => {
   }
 
 export const MailItem: FC<Props> = (prop) => {
+    const handleClick = () => {
+      window.location.href = `/${prop.meigaraId}`;
+    };
+
     return (
         <div>
-            <Title>{prop.title}</Title>
+            <Title onClick={handleClick}>{prop.title}</Title>
             <ImageComp
                     className="object-contain"
                     src={prop.imagePath}
                     alt='logo'
                     width="200"
                     height="250"
+                    onClick={handleClick}
                     />
         </div>
     );

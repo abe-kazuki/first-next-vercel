@@ -39,14 +39,14 @@ padding: 5px 5px;
 `
 
 export type Props = {
-  title: String;
+  meigaraId: number;
 }
 
 export const Container: FC<Props> = (prop) => {
   const [detail, setDetail] = useState<AlcoholDetails>()
 
   useEffect(() => {
-    const reqPostsResult = reqMeigaras.get(1)
+    const reqPostsResult = reqMeigaras.get(prop.meigaraId)
     reqPostsResult?.then(
         (res: SuccessResult<AlcoholDetails> | FailResult<AlcoholDetails>) => {
             const result: AlcoholDetails = (res as SuccessResult<AlcoholDetails> ).response.data
