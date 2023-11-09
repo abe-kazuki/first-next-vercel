@@ -12,7 +12,7 @@ const Page = async({
     return (
         <main id="root" className="main">
             {params["id"]}
-            <Container title={"タイトル"}/>
+            <Container meigaraId={parseInt(params["id"], 10)}/>
         </main>
     );
 };
