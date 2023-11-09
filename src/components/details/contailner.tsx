@@ -1,9 +1,11 @@
 'use client';
-import {FC} from 'react';
+import {FC, useState, useEffect} from 'react';
 import NextImage from 'next/image';
 import styled from 'styled-components';
 import { pc, sp, tab } from '../../media';
-import {SubItem} from './../../components/sample_cell';
+import {SubItem, Props as SubItemNecessary} from './../../components/sample_cell';
+import {reqMeigaras, AlcoholDetails} from './../../lib/meigara/detailJsonPlaceholder';
+import { SuccessResult, FailResult } from './../../service/api';
 
 const ContainerBase = styled.div`
 margin: 0 50px;
@@ -35,19 +37,44 @@ export type Props = {
 }
 
 export const Container: FC<Props> = (prop) => {
+  const [detail, setDetail] = useState<AlcoholDetails>()
+
+  useEffect(() => {
+    const reqPostsResult = reqMeigaras.get(1)
+    reqPostsResult?.then(
+        (res: SuccessResult<AlcoholDetails> | FailResult<AlcoholDetails>) => {
+            const result: AlcoholDetails = (res as SuccessResult<AlcoholDetails> ).response.data
+            setDetail(result)
+        })
+  }, []);
+
   return (
     <div>
       <ContainerBase>
         <ImageComp
           className="object-contain"
-          src="https://storage.googleapis.com/sake-bucket/hakushuu.png"
+          src={detail?.imagePath || '/default-image-path'}
           alt='logo'
           width="300"
           height="300"
           />
-        <Content title= ""></Content>
+        <Content
+            categoryId= {detail?.categoryId || 0}
+            categoryName= {detail?.categoryName || ""}
+            meigaraId= {detail?.meigaraId || 0}
+            meigaraName= {detail?.meigaraName || ""}
+            region= {detail?.region || ""}
+            price= {detail?.price || 0}
+            alcoholDegree= {detail?.alcoholDegree || 0}
+            description= {detail?.description || ""}
+            officialUrl= {detail?.officialUrl || ""}
+            likesCount= {detail?.likesCount || 0}
+            commentsCount= {detail?.commentsCount || 0}
+            imagePath= {detail?.imagePath || ""}
+            nomikata= {detail?.nomikata || []}
+        />
       </ContainerBase>
-      <SubItem title={"タイトル"} imagePath={""} nomikatas={[]} meigaraId={1}/>
+      <SubItem main={{title: "", imagePath: "", nomikatas: [], meigaraId: 0}} likeCount= {detail?.likesCount || 0} commntCount = {detail?.commentsCount || 0} viewCount= {0}/>
     </div>
   );
 }
@@ -67,17 +94,17 @@ const StyledLink = styled.a`
   }
 `;
 
-export const Content: FC<Props> = (prop) => {
+export const Content: FC<AlcoholDetails> = (prop) => {
   return (
     <ContentBase>
-            <div>カテゴリ</div>
-            <Title>タイトル</Title>
-            <div>値段</div>
-            <div>原産地</div>
-            <div>アルコール度数</div>
-            <StyledLink href='https://www.figma.com/file/zh1uXEIb2gmOMIZElWoz9J/Untitled?type=design&node-id=0-1&mode=design&t=CxXntk05Gq2i9ExO-0'>販売サイトはこちら</StyledLink>
+            <div>{prop.categoryName}</div>
+            <Title>{prop.meigaraName}</Title>
+            <div>価格：{prop.price}円</div>
+            <div>生産国{prop.region}</div>
+            <div>アルコール度数：{prop.alcoholDegree}%</div>
+            <StyledLink href={prop.officialUrl}>販売サイトはこちら</StyledLink>
             <br/><br/>
-            説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文説明文
+            {prop.description}
     </ContentBase>
   )
 }
