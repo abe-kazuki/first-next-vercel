@@ -10,21 +10,26 @@ import { SuccessResult, FailResult } from './../../service/api';
 const ContainerBase = styled.div`
 margin: 0 50px;
 padding: 8px 14px;
-height:10;
-font-weight: 300;
-border-radius: 30px 30px 30px 30px;
 ${sp`
+background: rgba(0, 0, 0, 0.2);
+border-radius: 30px 30px 30px 30px;
 `}
 ${tab`
-display: flex;
-`}
-${pc`
-display: flex; 
+background: rgba(0, 0, 0, 0.2);
+border-radius: 30px 30px 30px 30px;
 `}
 `
 
 const ContentBase = styled.div`
 padding: 50px;
+height:10;
+font-weight: 300;
+`
+
+const ContentContainer = styled.div`
+${pc`
+display: flex;
+`}
 `
 
 const ImageComp = styled(NextImage)`
@@ -51,13 +56,6 @@ export const Container: FC<Props> = (prop) => {
   return (
     <div>
       <ContainerBase>
-        <ImageComp
-          className="object-contain"
-          src={detail?.imagePath || '/default-image-path'}
-          alt='logo'
-          width="300"
-          height="300"
-          />
         <Content
             categoryId= {detail?.categoryId || 0}
             categoryName= {detail?.categoryName || ""}
@@ -73,8 +71,8 @@ export const Container: FC<Props> = (prop) => {
             imagePath= {detail?.imagePath || ""}
             nomikata= {detail?.nomikata || []}
         />
+        <SubItem main={{title: "", imagePath: "", nomikatas: detail?.nomikata || [], meigaraId: 0}} likeCount= {detail?.likesCount || 0} commntCount = {detail?.commentsCount || 0} viewCount= {0}/>
       </ContainerBase>
-      <SubItem main={{title: "", imagePath: "", nomikatas: [], meigaraId: 0}} likeCount= {detail?.likesCount || 0} commntCount = {detail?.commentsCount || 0} viewCount= {0}/>
     </div>
   );
 }
@@ -96,15 +94,25 @@ const StyledLink = styled.a`
 
 export const Content: FC<AlcoholDetails> = (prop) => {
   return (
-    <ContentBase>
-            <div>{prop.categoryName}</div>
-            <Title>{prop.meigaraName}</Title>
-            <div>価格：{prop.price}円</div>
-            <div>生産国{prop.region}</div>
-            <div>アルコール度数：{prop.alcoholDegree}%</div>
-            <StyledLink href={prop.officialUrl}>販売サイトはこちら</StyledLink>
-            <br/><br/>
-            {prop.description}
-    </ContentBase>
+    <ContentContainer>
+      <ImageComp
+        className="object-contain"
+        src={prop?.imagePath || '/default-image-path'}
+        alt='logo'
+        width="300"
+        height="300"
+      />
+      <ContentBase>
+
+              <div>{prop.categoryName}</div>
+              <Title>{prop.meigaraName}</Title>
+              <div>価格：{prop.price}円</div>
+              <div>生産国{prop.region}</div>
+              <div>アルコール度数：{prop.alcoholDegree}%</div>
+              <StyledLink href={prop.officialUrl}>販売サイトはこちら</StyledLink>
+              <br/><br/>
+              {prop.description}
+      </ContentBase>
+    </ContentContainer>
   )
 }
