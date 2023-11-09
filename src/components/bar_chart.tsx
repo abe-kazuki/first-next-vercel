@@ -8,6 +8,7 @@ import { pc, sp, tab } from '../../media';
 
 const CellBase = styled.div`
 margin: 10px 10px;
+padding: 16px;
 background: rgba(0, 0, 0, 0.2);
 border: 1px solid #fff;
 border-radius: 30px 30px 30px 30px;
