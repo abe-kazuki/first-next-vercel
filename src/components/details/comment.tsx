@@ -18,6 +18,16 @@ export type Props = {
 
 export const Comment: FC<Props> = (prop: Props) => {
     const [comments, setComments] = useState<Comments>({comments: []})
+    const [inputComment, setInputComment] = useState("");
+    const handleChange = (e: any) => {
+        setInputComment(e.target.value);
+        console.log(`文字列追加されているせ${inputComment}`)
+      };
+    const handleSubmit = (e: any) => {
+        console.log("サブミットされたぜ！！")
+        // API通信
+        // 結果をコメントにappendする
+    };
     useEffect(() => {
         const reqPostsResult = reqCommentsGet.get(prop.meigara_id)
         reqPostsResult?.then(
@@ -34,7 +44,7 @@ export const Comment: FC<Props> = (prop: Props) => {
                     <CommentContent id={index} text={text} date={new Date(date)} key={index}/>
                 ))
             }
-            <CommentForm/>
+            <CommentForm text={inputComment} handleChange={handleChange} handleSubmit={handleSubmit}/>
         </CommentBase>
     )
 }

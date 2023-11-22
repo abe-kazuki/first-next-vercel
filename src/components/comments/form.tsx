@@ -24,15 +24,25 @@ const CommentInput = styled.input`
     font-size: 16px;
 `
 
+const Form = styled.form`
+`
 
-export const CommentForm: FC = () => {
+export type Props = {
+    text: string;
+    handleChange: (e: any) => void;
+    handleSubmit: (e: any) => void;
+  }
+
+export const CommentForm: FC<Props> = (props: Props) => {
     return (
-        <div>
-            <CommentInput
+        <Form onSubmit={props.handleSubmit}>
+            <CommentInput onSubmit={props.handleSubmit}
                 type="text"
+                value={props.text}
+                onChange={props.handleChange}
                 placeholder="コメントを追加..."
             />
             <SendButton type="submit">送信</SendButton>
-        </div>
+        </Form>
     )
 }
