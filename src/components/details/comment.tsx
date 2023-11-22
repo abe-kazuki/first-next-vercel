@@ -16,7 +16,7 @@ export type Props = {
     meigara_id: number;
 }
 
-export const CommentComp: FC<Props> = (prop: Props) => {
+export const Comment: FC<Props> = (prop: Props) => {
     const [comments, setComments] = useState<Comments>({comments: []})
     useEffect(() => {
         const reqPostsResult = reqCommentsGet.get(prop.meigara_id)

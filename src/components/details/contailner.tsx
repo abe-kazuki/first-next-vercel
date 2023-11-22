@@ -4,7 +4,7 @@ import NextImage from 'next/image';
 import styled from 'styled-components';
 import { pc, sp, tab } from '../../media';
 import {SubItem, Props as SubItemNecessary} from './../../components/sample_cell';
-import { CommentComp } from './commentComp';
+import { Comment } from './comment';
 import {reqMeigaras, AlcoholDetails} from './../../lib/meigara/detailJsonPlaceholder';
 import { SuccessResult, FailResult } from './../../service/api';
 
@@ -73,7 +73,7 @@ export const Container: FC<Props> = (prop) => {
             nomikata= {detail?.nomikata || []}
         />
         <SubItem main={{title: "", imagePath: "", nomikatas: detail?.nomikata || [], meigaraId: 0}} likeCount= {detail?.likesCount || 0} commntCount = {detail?.commentsCount || 0} viewCount= {0}/>
-        <CommentComp meigara_id={prop.meigaraId}/>
+        <Comment meigara_id={prop.meigaraId}/>
       </ContainerBase>
     </div>
   );
