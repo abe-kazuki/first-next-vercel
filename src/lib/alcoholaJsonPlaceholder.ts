@@ -6,6 +6,9 @@ export type Alcohol = {
   meigaraId: number;
   osakeName: string;
   imagePath: string;
+  likesCount: number;
+  viewsCount: number;
+  commentsCount: number;
   nomikata: Nomikatas;
   };
 

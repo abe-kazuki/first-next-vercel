@@ -82,21 +82,29 @@ export type Props = {
     imagePath: string;
     nomikatas: Nomikatas
     meigaraId: number
+    likeCount: number
+    commntCount: number
+    viewCount: number
   }
 
 export type SubProps = {
     main: Props
-    likeCount: number
-    commntCount: number
-    viewCount: number
   }
 
 export const SampleCard: FC<Props> = (prop) => {
     return (
       <div style={{ background: '#fff'}}>
         <CellBase>
-            <MailItem title={prop.title} imagePath={prop.imagePath} nomikatas={prop.nomikatas} meigaraId={prop.meigaraId}/>
-            <SubItem main={prop} likeCount= {1} commntCount = {1 }viewCount= {0}/>
+            <MailItem 
+              title={prop.title}
+              imagePath={prop.imagePath}
+              nomikatas={prop.nomikatas}
+              meigaraId={prop.meigaraId}
+              likeCount={prop.likeCount}
+              commntCount={prop.commntCount}
+              viewCount={prop.viewCount}
+            />
+            <SubItem main={prop}/>
         </CellBase>
       </div>
     );
@@ -125,9 +133,9 @@ export const MailItem: FC<Props> = (prop) => {
 export const SubItem: FC<SubProps> = (prop) => {
     return (
         <div>
-            <ActionButton onClick={function(){alert(prop.main.nomikatas.length);}}>{prop.commntCount} Comments</ActionButton>
-            <ActionButton>{prop.likeCount} Likes</ActionButton>
-            <ActionButton>{prop.viewCount} Views</ActionButton>
+            <ActionButton onClick={function(){alert(prop.main.nomikatas.length);}}>{prop.main.commntCount} Comments</ActionButton>
+            <ActionButton>{prop.main.likeCount} Likes</ActionButton>
+            <ActionButton>{prop.main.viewCount} Views</ActionButton>
             <MyBarChartComp list={prop.main.nomikatas} handle={async (nomikatas_id: number)  => {
               await reqAlcohols.patch(prop.main.meigaraId, nomikatas_id).
               then((res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {alert(`${prop.main.nomikatas[nomikatas_id - 1].name}に1票投票しました！`)})
