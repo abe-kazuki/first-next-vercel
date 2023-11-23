@@ -5,6 +5,7 @@ import {CommentContent} from './../comments/content'
 import styled from 'styled-components';
 import {Comments, reqComments, PostCommentRes} from '../../lib/meigara/commentJsonPlaceholder';
 import {FailResult, SuccessResult} from "~/src/service/api";
+import { LoadingComp } from './../loading';
 
 const CommentBase = styled.div`
 margin: 12px;
@@ -19,12 +20,14 @@ export type Props = {
 export const Comment: FC<Props> = (prop: Props) => {
     const [comments, setComments] = useState<Comments>({comments: []})
     const [inputComment, setInputComment] = useState("");
+    const [loading, setLoading] = useState(false);
     const handleChange = (e: any) => {
         setInputComment(e.target.value);
         console.log(`文字列追加されているせ${inputComment}`)
       };
     const handleSubmit = (e: any) => {
         e.preventDefault();
+        setLoading(true)
         const reqPostsResult = reqComments.post(prop.meigara_id, inputComment)
         reqPostsResult?.then(
             (res: SuccessResult<PostCommentRes> | FailResult<PostCommentRes>) => {
@@ -34,10 +37,12 @@ export const Comment: FC<Props> = (prop: Props) => {
                 setComments((prevComments) => ({
                     comments: [...prevComments.comments, result.comment],
                 }));
+                setInputComment("")
             }).catch((res: FailResult<PostCommentRes>) =>{
                 alert(`コメントの追加に失敗しました。`);
-              })
-        // 結果をコメントにappendする
+            }).finally(() => {
+                setLoading(false); 
+            })
     };
     useEffect(() => {
         const reqPostsResult = reqComments.get(prop.meigara_id)
@@ -55,6 +60,7 @@ export const Comment: FC<Props> = (prop: Props) => {
                     <CommentContent id={index} text={text} date={new Date(date)} key={index}/>
                 ))
             }
+            {loading && <LoadingComp />}
             <CommentForm text={inputComment} handleChange={handleChange} handleSubmit={handleSubmit}/>
         </CommentBase>
     )
