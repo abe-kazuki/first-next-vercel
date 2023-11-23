@@ -57,23 +57,25 @@ export const Container: FC<Props> = (prop) => {
   return (
     <div>
       <ContainerBase>
-        <Content
-            categoryId= {detail?.categoryId || 0}
-            categoryName= {detail?.categoryName || ""}
-            meigaraId= {detail?.meigaraId || 0}
-            meigaraName= {detail?.meigaraName || ""}
-            region= {detail?.region || ""}
-            price= {detail?.price || 0}
-            alcoholDegree= {detail?.alcoholDegree || 0}
-            description= {detail?.description || ""}
-            officialUrl= {detail?.officialUrl || ""}
-            likesCount= {detail?.likesCount || 0}
-            commentsCount= {detail?.commentsCount || 0}
-            imagePath= {detail?.imagePath || ""}
-            nomikata= {detail?.nomikata || []}
-        />
         {detail ? (
-        <SubItem main={{title: "", imagePath: "", nomikatas: detail?.nomikata || [], meigaraId: prop.meigaraId}} likeCount= {detail?.likesCount || 0} commntCount = {detail?.commentsCount || 0} viewCount= {0}/>
+          <p>
+            <Content
+              categoryId= {detail?.categoryId || 0}
+              categoryName= {detail?.categoryName || ""}
+              meigaraId= {detail?.meigaraId || 0}
+              meigaraName= {detail?.meigaraName || ""}
+              region= {detail?.region || ""}
+              price= {detail?.price || 0}
+              alcoholDegree= {detail?.alcoholDegree || 0}
+              description= {detail?.description || ""}
+              officialUrl= {detail?.officialUrl || ""}
+              likesCount= {detail?.likesCount || 0}
+              commentsCount= {detail?.commentsCount || 0}
+              imagePath= {detail?.imagePath || ""}
+              nomikata= {detail?.nomikata || []}
+            />
+            <SubItem main={{title: "", imagePath: "", nomikatas: detail?.nomikata || [], meigaraId: prop.meigaraId}} likeCount= {detail?.likesCount || 0} commntCount = {detail?.commentsCount || 0} viewCount= {0}/>
+          </p>
         ) : (
           <p>Loading...</p>
         )}
