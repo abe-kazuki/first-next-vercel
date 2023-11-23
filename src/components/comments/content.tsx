@@ -31,6 +31,8 @@ export type Props = {
   }
   
 export const CommentContent: FC<Props> = (prop) => {
+    
+
     return (
         <ContentContainer id={prop.id.toString()}>
             <DateComp>{prop.date.toLocaleString()}</DateComp>
