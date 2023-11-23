@@ -71,10 +71,19 @@ export const Container: FC<Props> = (prop) => {
               officialUrl= {detail?.officialUrl || ""}
               likesCount= {detail?.likesCount || 0}
               commentsCount= {detail?.commentsCount || 0}
+              viewsCount= {detail?.viewsCount || 0}
               imagePath= {detail?.imagePath || ""}
               nomikata= {detail?.nomikata || []}
             />
-            <SubItem main={{title: "", imagePath: "", nomikatas: detail?.nomikata || [], meigaraId: prop.meigaraId}} likeCount= {detail?.likesCount || 0} commntCount = {detail?.commentsCount || 0} viewCount= {0}/>
+            <SubItem main={{
+              title: "",
+              imagePath: "",
+              nomikatas: detail?.nomikata || [],
+              meigaraId: prop.meigaraId,
+              likeCount: detail?.likesCount || 0,
+              commntCount: detail?.commentsCount || 0,
+              viewCount: detail?.viewsCount || 0
+             }}/>
           </p>
         ) : (
           <p>Loading...</p>

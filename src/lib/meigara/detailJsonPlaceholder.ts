@@ -12,6 +12,7 @@ export type AlcoholDetails = {
     description: string;
     officialUrl: string;
     likesCount: number;
+    viewsCount: number;
     commentsCount: number;
     imagePath: string;
     nomikata: Nomikatas;

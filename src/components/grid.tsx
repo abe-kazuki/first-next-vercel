@@ -25,11 +25,19 @@ export const Grid: FC<Props> =  (prop: Props) => {
     return (
         <div className="grid">
             {
-                alcohols?.map(({ meigaraId, osakeName, imagePath, nomikata }, index) => 
+                alcohols?.map(({ meigaraId, osakeName, imagePath, nomikata, likesCount, commentsCount, viewsCount }, index) => 
                     (
                     <div key={meigaraId}>
                         <FadeIn duration={index*1.2}>
-                        <SampleCard title={osakeName} imagePath={imagePath} nomikatas={nomikata} meigaraId={meigaraId}/>
+                            <SampleCard 
+                                title={osakeName}
+                                imagePath={imagePath}
+                                nomikatas={nomikata}
+                                meigaraId={meigaraId}
+                                likeCount={likesCount}
+                                commntCount={commentsCount}
+                                viewCount={viewsCount}
+                            />
                         </FadeIn>
                     </div>
                     )
