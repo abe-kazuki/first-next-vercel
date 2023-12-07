@@ -33,11 +33,12 @@ export const Comment: FC<Props> = (prop: Props) => {
             (res: SuccessResult<PostCommentRes> | FailResult<PostCommentRes>) => {
                 const result: PostCommentRes = (res as SuccessResult<PostCommentRes> ).response.data
                 const newComments = comments
+                newComments.comments = newComments.comments ?? [];
                 newComments.comments.push(result.comment)
                 setComments(newComments)
                 setInputComment("")
             }).catch((res: FailResult<PostCommentRes>) =>{
-                alert(`コメントの追加に失敗しました。`);
+                alert(`${res.status}コメントの追加に失敗しました。`);
             }).finally(() => {
                 setLoading(false); 
             })
