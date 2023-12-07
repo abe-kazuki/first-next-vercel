@@ -32,11 +32,9 @@ export const Comment: FC<Props> = (prop: Props) => {
         reqPostsResult?.then(
             (res: SuccessResult<PostCommentRes> | FailResult<PostCommentRes>) => {
                 const result: PostCommentRes = (res as SuccessResult<PostCommentRes> ).response.data
-                
-                // 新しいコメントを既存のコメントに追加してステートを更新
-                setComments((prevComments) => ({
-                    comments: [...prevComments.comments, result.comment],
-                }));
+                const newComments = comments
+                newComments.comments.push(result.comment)
+                setComments(newComments)
                 setInputComment("")
             }).catch((res: FailResult<PostCommentRes>) =>{
                 alert(`コメントの追加に失敗しました。`);
