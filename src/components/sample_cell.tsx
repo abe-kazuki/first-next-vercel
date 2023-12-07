@@ -59,6 +59,17 @@ const textChange = keyframes`
   100% { transform: scale(1); opacity: 1; }
 `;
 
+// フェードインのキーフレームを定義
+const fadeInIcon = keyframes`
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+`;
+
+const CustomIcon = styled(NextImage)`
+opacity: 0; /* 最初は透明に設定 */
+animation: ${fadeInIcon} 1s ease-in-out; /* フェードインアニメーションの適用 */
+`
+
 const ActionButton = styled.button`
   margin: 0 5px;
   padding: 8px 10px;
@@ -149,6 +160,7 @@ export const SubItem: FC<SubProps> = (prop) => {
         setLikes((prevLikes) => prevLikes); // 前回の状態を使用して更新
       }, 50); // アニメーションの時間に合わせて適切な時間を設定
       console.log("useEffectリクエストしているよ！！")
+      setPosted(false)
       // コンポーネントがアンマウントされた場合、クリアする
       return () => clearTimeout(timeoutId);
     }, [like_count]);
@@ -156,7 +168,7 @@ export const SubItem: FC<SubProps> = (prop) => {
     return (
         <div>
             <ActionButton>{prop.main.commntCount} Comments</ActionButton>
-            <ActionButton id={`${like_count}`} onClick={ async () => {
+            {!posted && <ActionButton id={`${like_count}`} onClick={ async () => {
                   await reqLikes.patch(prop.main.meigaraId)
                   .then((res: SuccessResult<LikeResponse> | FailResult<LikeResponse>) => {
                     setPosted(true)
@@ -165,7 +177,14 @@ export const SubItem: FC<SubProps> = (prop) => {
                   .finally()
                 }}>
               {like_count} Likes
-            </ActionButton>
+            </ActionButton>}
+            {posted && <CustomIcon
+                        className="object-contain"
+                        src='/glass_cheers_10105-300x300.png'
+                        alt='logo'
+                        width="100"
+                        height="100">
+                        </CustomIcon>}
             <ActionButton >{prop.main.viewCount} Views</ActionButton>
             <MyBarChartComp list={prop.main.nomikatas} handle={async (nomikatas_id: number)  => {
               await reqAlcohols.patch(prop.main.meigaraId, nomikatas_id).
