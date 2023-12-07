@@ -1,9 +1,10 @@
 'use client';
-import {FC} from 'react';
+import {FC, useState, useEffect} from 'react';
 import NextImage from 'next/image';
 import styled, {keyframes} from 'styled-components';
 import { MyBarChartComp } from './../components/bar_chart';
 import { Nomikatas, reqAlcohols, PatchRes} from '../lib/alcoholaJsonPlaceholder';
+import { reqLikes, LikeResponse} from '../lib/meigara/likeJsonPlaceholder';
 import {SuccessResult, FailResult} from './../../src/service/api';
 import { pc, sp, tab } from '../../media';
 
@@ -12,7 +13,6 @@ margin: 0 50px;
 padding: 8px 14px;
 height:10;
 background: rgba(0, 0, 0, 0.2);
-color: #fff;
 border: 1px solid #fff;
 font-weight: 300;
 border-radius: 30px 30px 30px 30px;
@@ -48,15 +48,21 @@ margin: 0 5px;
 padding: 5px 5px;
 `
 
+// アニメーションの定義
+const textChange = keyframes`
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+`;
+
 const ActionButton = styled.button`
   margin: 0 5px;
   padding: 8px 10px;
   background: rgba(155, 155, 155, 0.2);
   cursor: pointer;
   border: 1px solid #fff;
-  :hover {
-    opacity: 0.8;
-  }
+  animation: ${textChange} 0.8s;
+}
 `
 
 const fadeIn = keyframes`
@@ -131,11 +137,32 @@ export const MailItem: FC<Props> = (prop) => {
 }
 
 export const SubItem: FC<SubProps> = (prop) => {
+    const [like_count, setLikes] = useState(prop.main.likeCount)
+    const [posted, setPosted] = useState(false)
+
+    useEffect(() => {
+      const timeoutId = setTimeout(() => {
+        setLikes((prevLikes) => prevLikes); // 前回の状態を使用して更新
+      }, 50); // アニメーションの時間に合わせて適切な時間を設定
+      console.log("useEffectリクエストしているよ！！")
+      // コンポーネントがアンマウントされた場合、クリアする
+      return () => clearTimeout(timeoutId);
+    }, [like_count]);
+
     return (
         <div>
-            <ActionButton onClick={function(){alert(prop.main.nomikatas.length);}}>{prop.main.commntCount} Comments</ActionButton>
-            <ActionButton>{prop.main.likeCount} Likes</ActionButton>
-            <ActionButton>{prop.main.viewCount} Views</ActionButton>
+            <ActionButton>{prop.main.commntCount} Comments</ActionButton>
+            <ActionButton id={`${like_count}`} onClick={ async () => {
+                  await reqLikes.patch(prop.main.meigaraId)
+                  .then((res: SuccessResult<LikeResponse> | FailResult<LikeResponse>) => {
+                    setPosted(true)
+                    setLikes((prevLikes) => prevLikes + 1);
+                  })
+                  .finally()
+                }}>
+              {like_count} Likes
+            </ActionButton>
+            <ActionButton >{prop.main.viewCount} Views</ActionButton>
             <MyBarChartComp list={prop.main.nomikatas} handle={async (nomikatas_id: number)  => {
               await reqAlcohols.patch(prop.main.meigaraId, nomikatas_id).
               then((res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {alert(`${prop.main.nomikatas[nomikatas_id - 1].name}に1票投票しました！`)})
