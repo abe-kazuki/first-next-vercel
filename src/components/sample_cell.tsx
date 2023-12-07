@@ -31,7 +31,11 @@ const Title = styled.h2`
   color: #333;
   inline-size: 200px;
   overflow-wrap: break-word;
-  text-align: center
+  text-align: center; /* セミコロンを追加 */
+  &:hover,
+  &:focus {
+    cursor: pointer; /* または任意の指定したカーソルのスタイル */
+  }
 `
 const Date = styled.div`
   font-weight: 300;
