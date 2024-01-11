@@ -5,7 +5,7 @@ import {CommentContent} from './../comments/content'
 import styled from 'styled-components';
 import {Comments, reqComments, PostCommentRes} from '../../lib/meigara/commentJsonPlaceholder';
 import {FailResult, SuccessResult} from "~/src/service/api";
-import { LoadingComp } from './../loading';
+import { LoadingComp } from '../Molecules/loading';
 
 const CommentBase = styled.div`
 margin: 12px;

@@ -7,6 +7,8 @@ import {SubItem, Props as SubItemNecessary} from './../../components/sample_cell
 import { Comment } from './comment';
 import {reqMeigaras, AlcoholDetails} from './../../lib/meigara/detailJsonPlaceholder';
 import { SuccessResult, FailResult } from './../../service/api';
+import { useRouter, usePathname }from 'next/navigation'
+import { LoadingComp } from '../Molecules/loading';
 
 const ContainerBase = styled.div`
 margin: 0 50px;
@@ -55,6 +57,10 @@ export type Props = {
 
 export const Container: FC<Props> = (prop) => {
   const [detail, setDetail] = useState<AlcoholDetails>()
+  const [loading, setLoading] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const router = useRouter()
+  const pathname = usePathname() 
 
   useEffect(() => {
     const reqPostsResult = reqMeigaras.get(prop.meigaraId)
@@ -65,12 +71,21 @@ export const Container: FC<Props> = (prop) => {
         })
   }, []);
 
+  const toggleModal = () => {
+    setIsOpenModal(!isOpenModal);
+    console.log(`toggleModalだよ`)
+  };
+
   return (
     <div>
       <ContainerBase>
         {detail ? (
           <p>
-            <CustomButton >編集</CustomButton> 
+            <CustomButton onClick={toggleModal}>
+              編集
+            </CustomButton> 
+            
+            {loading && <LoadingComp />}
             <Content
               categoryId= {detail?.categoryId || 0}
               categoryName= {detail?.categoryName || ""}

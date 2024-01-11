@@ -1,5 +1,5 @@
 import {FC, cloneElement, ReactNode} from 'react';
-import { Portal } from './portal';
+import { Portal } from '../Molecules/portal';
 import styled from 'styled-components';
 
 
@@ -9,7 +9,6 @@ type Props = {
   };
 
 export const Modal: FC<Props> = props => {
-    console.log("Modalだよ")
     return (
       <Portal>
       <div className={"overlay"}>

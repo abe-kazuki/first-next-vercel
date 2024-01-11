@@ -1,13 +1,14 @@
 'use client';
 import styled from 'styled-components';
 import {FC, useState} from 'react';
-import { Modal } from './../components/modal';
+import { Modal } from './Organisms/modal';
 import { InputPanel } from './../components/input_panel';
-import { LoadingComp } from './../components/loading';
+import { LoadingComp } from './Molecules/loading';
 
 import {reqMeigaras, PostRes} from '../lib/meigarasJsonPlaceholder';
 import {reqMeigarasImage, ImagePostRes} from '../lib/meigara/imageJsonPlaceholder';
 import {SuccessResult, FailResult} from './../../src/service/api';
+import {Overlay} from './Atoms/overlay';
 
 
 const CreateButton = styled.button`
@@ -20,17 +21,7 @@ const CreateButton = styled.button`
   }
 `
 
-const Overlay = styled.div`
-    background-color: rgba(0, 0, 0, 0.6);
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: flex; /* 中央揃えを可能にする */
-    justify-content: center;
-    align-items: center;
-`;
+
 
 type Props = {
   category_id: number;
