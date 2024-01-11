@@ -33,7 +33,6 @@ const CustomForm = styled.form`
 
 type Props = {
   handleSubmit: (e: any) => void;
-  handleChange: (e: any) => void;
   handleCancel: (e: any) => void;
   meigaraName: string;
   region: string;
@@ -57,12 +56,9 @@ export const EditPanel: FC<Props> = props => {
     officialUrl: props.officialUrl
   });
 
-    const handleChange = () => {
-      console.log(`toggleModalだよ`)
-    };
     return (
       <ModalContent>
-        <CustomForm onSubmit={props.handleSubmit}>
+        <CustomForm onSubmit={()=>props.handleSubmit(state)}>
           <h3>銘柄名</h3>
             <CustomInput
               type="text"

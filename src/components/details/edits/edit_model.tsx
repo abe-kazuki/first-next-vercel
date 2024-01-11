@@ -15,8 +15,18 @@ type Props = {
     officialUrl: string;
   };
 
+type Value = {
+    meigaraName: string;
+    region: string;
+    price: number;
+    alcoholDegree: number;
+    description: string;
+    officialUrl: string;
+  };
+
 export const EditModel: FC<Props> = (props) => {
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: Value) => {
+        alert(e.description)
       }
     return (
         <div>
@@ -24,7 +34,6 @@ export const EditModel: FC<Props> = (props) => {
                 <Overlay>
                 <EditPanel 
                   handleSubmit={handleSubmit}
-                  handleChange={handleSubmit}
                   handleCancel={props.toggleModal}
                   meigaraName={props.meigaraName}
                   region={props.region}
