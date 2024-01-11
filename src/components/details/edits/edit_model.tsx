@@ -2,13 +2,11 @@
 import styled from 'styled-components';
 import {FC, useState} from 'react';
 import { Modal } from '../../Organisms/modal';
-import { InputPanel } from './edit_panel';
+import { EditPanel } from './edit_panel';
 import { Overlay } from '../../Atoms/overlay';
 
 type Props = {
     toggleModal: (e: any) => void;
-    categoryName: string;
-    meigaraId: number;
     meigaraName: string;
     region: string;
     price: number;
@@ -18,18 +16,22 @@ type Props = {
   };
 
 export const EditModel: FC<Props> = (props) => {
+    const handleSubmit = (e: any) => {
+      }
     return (
         <div>
             <Modal close={props.toggleModal}>
                 <Overlay>
-                <InputPanel input_value={inputValue} 
-                handleChange={handleChange} 
-                handleSubmit={handleSubmit}
-                handleCancel={toggleModal}
-                handleImageSelect={handleImageSelect}
-                file={file}
-                thumbnail={thumbnail}
-                osakeCategory={props.category_name}
+                <EditPanel 
+                  handleSubmit={handleSubmit}
+                  handleChange={handleSubmit}
+                  handleCancel={props.toggleModal}
+                  meigaraName={props.meigaraName}
+                  region={props.region}
+                  price={props.price}
+                  alcoholDegree={props.alcoholDegree}
+                  description={props.description}
+                  officialUrl={props.officialUrl}
                 />
                 </Overlay>
             </Modal>

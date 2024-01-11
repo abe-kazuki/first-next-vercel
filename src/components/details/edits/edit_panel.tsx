@@ -2,6 +2,9 @@
 import NextImage from 'next/image';
 import styled from 'styled-components';
 import {FC, useState} from 'react';
+import {CloseButton} from './../../Atoms/custom_button';
+import {WideTextArea}  from './../../Atoms/wide_textarea';
+import {CustomInput}  from './../../Atoms/custom_input';
 import { pc, sp, tab } from '../../../media';
 
 const ModalContent = styled.div`
@@ -27,109 +30,65 @@ overflow-y: auto; /* 縦方向のスクロールバーを表示 */
 const CustomForm = styled.form`
 `
 
-const CloseButton = styled.button`
-  margin: 10px 10px;
-  padding: 8px 10px;
-  background-color: #3b5998;
-  color: #fff;
-  :hover {
-    opacity: 0.8;
-  }
-`
-
-const CustomInput = styled.input`
-  margin: 10px 10px;
-  ${tab`
-    width: 300px;
-  `}
-  ${pc`
-    width: 300px;
-  `}
-`
-
-const CustomDiv = styled.div`
-  margin: 10px 10px;
-  ${tab`
-    width: 300px;
-  `}
-  ${pc`
-    width: 300px;
-  `}
-`
-
-const ImageConm = styled.div`
-  width: 300px;
-  margin: 10px 10px;
-  ${tab`
-  display: flex;
-  `}
-  ${pc`
-  display: flex; 
-  `}
-`
-
-const CheckboxGrid = styled.div`
-  margin: 10px 10px;
-  display: grid;
-  ${tab`
-    grid-template-columns: repeat(1fr, 3);
-  `}
-  ${pc`
-    grid-template-columns: repeat(3, 1fr);
-  `}
-  ${sp`
-    grid-template-columns: repeat(1fr, 3);
-  `}
-  grid-gap: 10px; /* グリッド間の間隔 */
-`
-
 type Props = {
-  input_value: string;  // toggleModal を受け取る
-  handleSubmit: (e: any) => void;  // 子コンポーネントを受け取る
+  handleSubmit: (e: any) => void;
   handleChange: (e: any) => void;
   handleCancel: (e: any) => void;
-  handleImageSelect: (e: any) => void;
-  osakeCategory: string
-  file: string | null;  // toggleModal を受け取る
-  thumbnail: string | null;  // 子コンポーネントを受け取る
+  meigaraName: string;
+  region: string;
+  price: number;
+  alcoholDegree: number;
+  description: string;
+  officialUrl: string;
 };
 
-export const InputPanel: FC<Props> = props => {
+export const EditPanel: FC<Props> = props => {
     console.log("Modalだよ")
     return (
       <ModalContent>
         <CustomForm onSubmit={props.handleSubmit}>
-          <h3>お酒カテゴリ名</h3>
-            <CustomDiv>{props.osakeCategory}</CustomDiv>
           <h3>銘柄名</h3>
             <CustomInput
               type="text"
-              value={props.input_value}
+              value={props.meigaraName}
               onChange={props.handleChange}
               placeholder="銘柄名を入力してください"
             />
-          <h3>画像を選択してください</h3>
-          <ImageConm>
-            {props.thumbnail && <NextImage src={props.thumbnail} alt="サムネイル" width="150" height="150"/>}
+          <h3>価格</h3>
             <CustomInput
-              type="file"
-              id="fileInput"
-              accept="image/*"
-              onChange={props.handleImageSelect}
+              type="text"
+              value={props.price}
+              onChange={props.handleChange}
+              placeholder="価格を入力してください"
+            />円
+          <h3>生産国</h3>
+            <CustomInput
+              type="text"
+              value={props.region}
+              onChange={props.handleChange}
+              placeholder="生産国を入力してください"
+            />円
+          <h3>アルコール度数</h3>
+            <CustomInput
+              type="text"
+              value={props.alcoholDegree}
+              onChange={props.handleChange}
+              placeholder="アルコール度数を入力してください"
+            />％
+          <h3>販売サイトリンク</h3>
+            <WideTextArea
+              value={props.officialUrl}
+              onChange={props.handleChange}
+              placeholder="リンクを入力してください"
             />
-          </ImageConm>
-          <h3>合う飲み方を選択してください</h3>
-            <CheckboxGrid>
-              {
-                nomikatas.map((nomikata, index) => (
-                  <label key ={index} >
-                    <input type="checkbox"  name="nomikata" value={index+1} /> 
-                    {` ${index+1}：${nomikata}`}
-                  </label>
-                ))
-              }
-            </CheckboxGrid>
-            <CloseButton type="submit">送信</CloseButton>
+          <h3>説明文</h3>
+          <WideTextArea
+              rows={4}
+              value={props.description}
+              onChange={props.handleChange}
+              placeholder="リンクを入力してください"
+          />
+          <CloseButton type="submit">送信</CloseButton>
           <CloseButton type="reset" onClick={props.handleCancel}>閉じる</CloseButton>
         </CustomForm>
       </ModalContent>

@@ -9,6 +9,7 @@ import {reqMeigaras, AlcoholDetails} from './../../lib/meigara/detailJsonPlaceho
 import { SuccessResult, FailResult } from './../../service/api';
 import { useRouter, usePathname }from 'next/navigation'
 import { LoadingComp } from '../Molecules/loading';
+import {EditModel} from './edits/edit_model'
 
 const ContainerBase = styled.div`
 margin: 0 50px;
@@ -84,7 +85,17 @@ export const Container: FC<Props> = (prop) => {
             <CustomButton onClick={toggleModal}>
               編集
             </CustomButton> 
-            
+            {isOpenModal && 
+              <EditModel
+              toggleModal={toggleModal}
+              meigaraName={detail?.meigaraName || ""}
+              region={detail.region || ""}
+              price={detail.price}
+              alcoholDegree={detail.alcoholDegree}
+              description={detail.description}
+              officialUrl={detail.officialUrl}
+              />
+            }
             {loading && <LoadingComp />}
             <Content
               categoryId= {detail?.categoryId || 0}
