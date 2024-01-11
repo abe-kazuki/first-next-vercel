@@ -2,9 +2,10 @@
 import NextImage from 'next/image';
 import styled from 'styled-components';
 import {FC, useState} from 'react';
-import {CloseButton} from './../../Atoms/custom_button';
+import {CustomButton} from './../../Atoms/custom_button';
 import {WideTextArea}  from './../../Atoms/wide_textarea';
 import {CustomInput}  from './../../Atoms/custom_input';
+import {useEditItem}  from './../../../hooks/useEditItem';
 import { pc, sp, tab } from '../../../media';
 
 const ModalContent = styled.div`
@@ -42,54 +43,69 @@ type Props = {
   officialUrl: string;
 };
 
+type EditValue = {
+
+};
+
 export const EditPanel: FC<Props> = props => {
-    console.log("Modalだよ")
+  const { state, updateMeigaraName, updateRegion, updatePrice, updateAlcoholDegree, updateOfficialUrl, updateDescription } = useEditItem({
+    meigaraName:props.meigaraName,
+    region: props.region,
+    price: props.price,
+    alcoholDegree: props.alcoholDegree,
+    description: props.description,
+    officialUrl: props.officialUrl
+  });
+
+    const handleChange = () => {
+      console.log(`toggleModalだよ`)
+    };
     return (
       <ModalContent>
         <CustomForm onSubmit={props.handleSubmit}>
           <h3>銘柄名</h3>
             <CustomInput
               type="text"
-              value={props.meigaraName}
-              onChange={props.handleChange}
+              value={state.meigaraName}
+              onChange={(e) => updateMeigaraName(e.target.value)}
               placeholder="銘柄名を入力してください"
             />
           <h3>価格</h3>
             <CustomInput
               type="text"
-              value={props.price}
-              onChange={props.handleChange}
+              value={state.price}
+              onChange={(e) => updatePrice(parseFloat(e.target.value))}
               placeholder="価格を入力してください"
             />円
           <h3>生産国</h3>
             <CustomInput
               type="text"
-              value={props.region}
-              onChange={props.handleChange}
+              value={state.region}
+              onChange={(e) => updateRegion(e.target.value)}
               placeholder="生産国を入力してください"
             />円
           <h3>アルコール度数</h3>
             <CustomInput
               type="text"
-              value={props.alcoholDegree}
-              onChange={props.handleChange}
+              value={state.alcoholDegree}
+              onChange={(e) => updateAlcoholDegree(parseFloat(e.target.value))}
               placeholder="アルコール度数を入力してください"
             />％
           <h3>販売サイトリンク</h3>
             <WideTextArea
-              value={props.officialUrl}
-              onChange={props.handleChange}
+              value={state.officialUrl}
+              onChange={(e) => updateOfficialUrl(e.target.value)}
               placeholder="リンクを入力してください"
             />
           <h3>説明文</h3>
           <WideTextArea
               rows={4}
-              value={props.description}
-              onChange={props.handleChange}
-              placeholder="リンクを入力してください"
+              value={state.description}
+              onChange={(e) => updateDescription(e.target.value)}
+              placeholder="説明文を入力してください"
           />
-          <CloseButton type="submit">送信</CloseButton>
-          <CloseButton type="reset" onClick={props.handleCancel}>閉じる</CloseButton>
+          <CustomButton type="submit">送信</CustomButton>
+          <CustomButton type="reset" onClick={props.handleCancel}>閉じる</CustomButton>
         </CustomForm>
       </ModalContent>
     );

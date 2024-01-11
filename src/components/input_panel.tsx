@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import {FC, useState} from 'react';
 import { nomikatas } from './../components/enums/nomikatas';
 import { pc, sp, tab } from '../../media';
+import {CustomButton} from './Atoms/custom_button';
+import {CustomInput}  from './Atoms/custom_input';
 
 const ModalContent = styled.div`
 background-color: #fff;
@@ -26,26 +28,6 @@ overflow-y: auto; /* 縦方向のスクロールバーを表示 */
 `;
 
 const CustomForm = styled.form`
-`
-
-const CloseButton = styled.button`
-  margin: 10px 10px;
-  padding: 8px 10px;
-  background-color: #3b5998;
-  color: #fff;
-  :hover {
-    opacity: 0.8;
-  }
-`
-
-const CustomInput = styled.input`
-  margin: 10px 10px;
-  ${tab`
-    width: 300px;
-  `}
-  ${pc`
-    width: 300px;
-  `}
 `
 
 const CustomDiv = styled.div`
@@ -130,8 +112,8 @@ export const InputPanel: FC<Props> = props => {
                 ))
               }
             </CheckboxGrid>
-            <CloseButton type="submit">送信</CloseButton>
-          <CloseButton type="reset" onClick={props.handleCancel}>閉じる</CloseButton>
+            <CustomButton type="submit">送信</CustomButton>
+          <CustomButton type="reset" onClick={props.handleCancel}>閉じる</CustomButton>
         </CustomForm>
       </ModalContent>
     );
