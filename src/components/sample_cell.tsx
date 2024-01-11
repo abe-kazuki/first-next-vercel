@@ -7,6 +7,7 @@ import { Nomikatas, reqAlcohols, PatchRes} from '../lib/alcoholaJsonPlaceholder'
 import { reqLikes, LikeResponse} from '../lib/meigara/likeJsonPlaceholder';
 import {SuccessResult, FailResult} from './../../src/service/api';
 import { pc, sp, tab } from '../../media';
+import { useRouter, usePathname } from 'next/navigation'
 
 const CellBase = styled.div`
 margin: 0 50px;
@@ -132,8 +133,15 @@ export const SampleCard: FC<Props> = (prop) => {
   }
 
 export const MailItem: FC<Props> = (prop) => {
+    const router = useRouter();
+    const pathname = usePathname() 
     const handleClick = () => {
-      window.location.href = `/${prop.meigaraId}`;
+      console.log(pathname) 
+      if (pathname == "/") {
+        router.push(`${prop.meigaraId}`)
+        return
+      }
+      router.push(`${pathname}/${prop.meigaraId}`)
     };
 
     return (

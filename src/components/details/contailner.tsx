@@ -21,7 +21,7 @@ border-radius: 30px 30px 30px 30px;
 `}
 `
 
-const ContentBase = styled.div`
+const ContentBase = styled.p`
 padding: 50px;
 height:10;
 font-weight: 300;
@@ -36,6 +36,17 @@ display: flex;
 const ImageComp = styled(NextImage)`
 margin: 0 5px;
 padding: 5px 5px;
+`
+
+
+const CustomButton = styled.button`
+  margin: 10px 10px;
+  padding: 8px 10px;
+  background-color: #3b5998;
+  color: #fff;
+  :hover {
+    opacity: 0.8;
+  }
 `
 
 export type Props = {
@@ -59,6 +70,7 @@ export const Container: FC<Props> = (prop) => {
       <ContainerBase>
         {detail ? (
           <p>
+            <CustomButton >編集</CustomButton> 
             <Content
               categoryId= {detail?.categoryId || 0}
               categoryName= {detail?.categoryName || ""}
@@ -119,12 +131,12 @@ export const Content: FC<AlcoholDetails> = (prop) => {
         width="300"
         height="300"
       />
-      <ContentBase>
 
+      <ContentBase>
               <div>{prop.categoryName}</div>
               <Title>{prop.meigaraName}</Title>
               <div>価格：{prop.price}円</div>
-              <div>生産国{prop.region}</div>
+              <div>生産国：{prop.region}</div>
               <div>アルコール度数：{prop.alcoholDegree}%</div>
               <StyledLink href={prop.officialUrl}>販売サイトはこちら</StyledLink>
               <br/><br/>
