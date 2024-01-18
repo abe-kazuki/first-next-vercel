@@ -8,6 +8,7 @@ import { reqLikes, LikeResponse} from '../lib/meigara/likeJsonPlaceholder';
 import {SuccessResult, FailResult} from './../../src/service/api';
 import { pc, sp, tab } from '../../media';
 import { useRouter, usePathname } from 'next/navigation'
+import { ItemImage } from './Atoms/item_image';
 
 const CellBase = styled.div`
 margin: 0 50px;
@@ -46,11 +47,6 @@ const Date = styled.div`
 const Description = styled.p`
   color: #fff;
   font-weight: 300;
-`
-
-const ImageComp = styled(NextImage)`
-margin: 0 5px;
-padding: 5px 5px;
 `
 
 // アニメーションの定義
@@ -147,7 +143,7 @@ export const MailItem: FC<Props> = (prop) => {
     return (
         <div>
             <Title onClick={handleClick}>{prop.title}</Title>
-            <ImageComp
+            <ItemImage
                     className="object-contain"
                     src={prop.imagePath}
                     alt='logo'

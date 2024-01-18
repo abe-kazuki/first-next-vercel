@@ -18,6 +18,10 @@ export type AlcoholDetails = {
     nomikata: Nomikatas;
     };
 
+export type PatchRes = {
+    status: number
+    };
+
 export type Error = {
     message: string;
     };
@@ -29,6 +33,21 @@ export const reqMeigaras = {
               `/meigaras/${meigara_id}`, {}
             )
           )
+    },
+
+    patch: (detail: AlcoholDetails) => {      
+      return requestResults<PatchRes>(
+        cliant_v1.patch<PatchRes>(
+            `meigaras/${detail.meigaraId}`, {
+              "osake_name": detail.meigaraName,
+              "description": detail.description,
+              "price": detail.price,
+              "official_url": detail.officialUrl,
+              "region": detail.region,
+              "alcohol_degree": detail.alcoholDegree
+            }
+        )
+      )
     },
 
     mock_get(meigara_id: number) {

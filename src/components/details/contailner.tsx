@@ -1,15 +1,15 @@
 'use client';
 import {FC, useState, useEffect} from 'react';
-import NextImage from 'next/image';
+import { ItemImage } from '../Atoms/item_image';
 import styled from 'styled-components';
 import { pc, sp, tab } from '../../media';
 import {SubItem, Props as SubItemNecessary} from './../../components/sample_cell';
 import { Comment } from './comment';
-import {reqMeigaras, AlcoholDetails} from './../../lib/meigara/detailJsonPlaceholder';
+import {reqMeigaras, AlcoholDetails, PatchRes} from './../../lib/meigara/detailJsonPlaceholder';
 import { SuccessResult, FailResult } from './../../service/api';
 import { useRouter, usePathname }from 'next/navigation'
 import { LoadingComp } from '../Molecules/loading';
-import {EditModel} from './edits/edit_model'
+import { EditModel, Value } from './edits/edit_model'
 
 const ContainerBase = styled.div`
 margin: 0 50px;
@@ -35,12 +35,6 @@ ${pc`
 display: flex;
 `}
 `
-
-const ImageComp = styled(NextImage)`
-margin: 0 5px;
-padding: 5px 5px;
-`
-
 
 const CustomButton = styled.button`
   margin: 10px 10px;
@@ -74,7 +68,34 @@ export const Container: FC<Props> = (prop) => {
 
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
-    console.log(`toggleModalだよ`)
+  };
+
+  const handleEdit = (v: Value) => {
+    const new_detail = {
+      categoryId: detail?.categoryId || 0,
+      categoryName: detail?.categoryName || "",
+      meigaraId: detail?.meigaraId || 0,
+      meigaraName: v.meigaraName|| "",
+      region: v.region|| "",
+      price: v.price|| 0,
+      alcoholDegree: v.alcoholDegree|| 0,
+      description: v.description|| "",
+      officialUrl: v.officialUrl|| "",
+      likesCount: detail?.likesCount || 0,
+      viewsCount: detail?.viewsCount || 0,
+      commentsCount: detail?.commentsCount || 0,
+      imagePath: detail?.imagePath || "",
+      nomikata: detail?.nomikata || [],
+    }
+    const reqPostsResult = reqMeigaras.patch(new_detail)
+    reqPostsResult?.then(
+        (res: SuccessResult<PatchRes> | FailResult<PatchRes>) => {
+            //本当はpatchしたらdetail欲しい
+            const result: PatchRes = (res as SuccessResult<PatchRes> ).response.data
+            setDetail(new_detail)
+            alert("更新完了しました")
+        })
+    setIsOpenModal(!isOpenModal);
   };
 
   return (
@@ -88,6 +109,7 @@ export const Container: FC<Props> = (prop) => {
             {isOpenModal && 
               <EditModel
               toggleModal={toggleModal}
+              handleEdit={handleEdit}
               meigaraName={detail?.meigaraName || ""}
               region={detail.region || ""}
               price={detail.price}
@@ -150,7 +172,7 @@ const StyledLink = styled.a`
 export const Content: FC<AlcoholDetails> = (prop) => {
   return (
     <ContentContainer>
-      <ImageComp
+      <ItemImage
         className="object-contain"
         src={prop?.imagePath || '/default-image-path'}
         alt='logo'

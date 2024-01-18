@@ -1,5 +1,4 @@
 'use client';
-import styled from 'styled-components';
 import {FC, useState} from 'react';
 import { Modal } from '../../Organisms/modal';
 import { EditPanel } from './edit_panel';
@@ -7,6 +6,7 @@ import { Overlay } from '../../Atoms/overlay';
 
 type Props = {
     toggleModal: (e: any) => void;
+    handleEdit: (e: any) => void;
     meigaraName: string;
     region: string;
     price: number;
@@ -15,7 +15,7 @@ type Props = {
     officialUrl: string;
   };
 
-type Value = {
+export type Value = {
     meigaraName: string;
     region: string;
     price: number;
@@ -25,8 +25,8 @@ type Value = {
   };
 
 export const EditModel: FC<Props> = (props) => {
-    const handleSubmit = (e: Value) => {
-        alert(e.description)
+    const handleSubmit = (v: Value) => {
+        props.handleEdit(v)
       }
     return (
         <div>
